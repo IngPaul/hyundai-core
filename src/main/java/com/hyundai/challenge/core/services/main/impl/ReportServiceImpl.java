@@ -49,6 +49,4 @@ public class ReportServiceImpl implements ReportService {
         response.setData(data);
         return response;
     }
-
-
 }
