@@ -14,7 +14,7 @@ import java.time.Duration;
 
 @SpringBootTest
 @SpringJUnitConfig
-public class RedisIntegrationTest {
+public class ReactiveRedisTemplateTest {
 
     @Autowired
     private ReactiveRedisTemplate<String, String> reactiveRedisTemplate;
