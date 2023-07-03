@@ -124,6 +124,7 @@ public class MockData {
         return vehiclePurchase;
     }
 
+
     public static PriceLiveDto getPriceLiveDto() {
         return PriceLiveDto.builder().data(DataPriceLiveDto.builder().lastPrice(BigDecimal.valueOf(20000)).build()).build();
     }
