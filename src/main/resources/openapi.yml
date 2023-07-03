@@ -1,0 +1,292 @@
+openapi: '3.0.3'
+info:
+  version: 1.0.0
+  title: Api of Bank Transaction Core V1
+  termsOfService: https://swagger.io/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Paul Cuichan
+    email: pcuichan@pichincha.com
+servers:
+  - url: http://localhost:8083/hyu-api-core
+    description: local
+
+tags:
+  - name: Vehicle Models
+    description: Vehicle Models Controller
+paths:
+  /vehicle-models/retrieve:
+    post:
+      summary: Retrieve vehicles version by model and cryptocurrency
+      tags:
+        - Vehicle Models
+      operationId: PostVehicleRetrieveModel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostVehicleModelRetrieveRequest'
+      responses:
+        '201':
+          description: Customer Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostVehicleModelRetrieveResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: No found
+        '500':
+          description: Internal Server Error
+  /vehicle-models/purchase:
+    post:
+      summary: Retrieve vehicles version by model and cryptocurrency
+      tags:
+        - Vehicle Models
+      operationId: postPurchaseVehicleModel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostPurchaseVehicleModelRequest'
+      responses:
+        '201':
+          description: Customer Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostPurchaseVehicleModelResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: No found
+        '500':
+          description: Internal Server Error
+  /vehicle-models/purchase/report:
+    post:
+      summary: Retrieve vehicles version by model and cryptocurrency
+      tags:
+        - Vehicle Models
+      operationId: postPurchaseReport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostPurchaseReportRequest'
+      responses:
+        '201':
+          description: Customer Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostPurchaseReportResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: No found
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    PostVehicleModelRetrieveRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/DataRequest'
+    DataRequest:
+      required:
+        - model
+        - cryptoCurrency
+      type: object
+      properties:
+        model:
+          type: string
+          description: Vehicle Model
+          example: TUCSON
+        cryptoCurrency:
+          type: string
+          description: Value of vehicle' model in crypto currency
+          example: BTC
+    PostVehicleModelRetrieveResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/DataResponse'
+    DataResponse:
+      type: object
+      required:
+        - convertionId
+        - conversionTimelife
+        - versions
+      properties:
+        convertionId:
+          type: string
+        conversionTimelife:
+          type: string
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleVersion'
+    VehicleVersion:
+      type: object
+      required:
+        - model
+        - version
+        - priceUsd
+        - priceCryptocurrency
+        - cryptocurrency
+      properties:
+        model:
+          type: string
+        version:
+          type: string
+        priceUsd:
+          type: number
+        priceCryptocurrency:
+          type: number
+        cryptocurrency:
+          type: string
+    PostPurchaseVehicleModelRequest:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - convertionId
+            - fullName
+            - version
+            - model
+            - cryptocurrency
+          properties:
+            convertionId:
+              type: string
+              example: xxx-xxx-xxx-xxxx
+            fullName:
+              type: string
+              example: Juan Perez
+            version:
+              type: string
+              example: TUCSON TL
+            model:
+              type: string
+              example: TUCSON
+            cryptocurrency:
+              type: string
+              example: BTC
+    PostPurchaseVehicleModelResponse:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/PostPurchaseVehicleModel'
+    PostPurchaseVehicleModel:
+      type: object
+      required:
+        - fullName
+        - version
+        - model
+        - cryptocurrency
+        - priceUsd
+        - priceCryptocurrency
+        - date
+        - purchaseId
+      properties:
+        fullName:
+          type: string
+          example: Juan Perez
+        version:
+          type: string
+          example: TUCSON TL
+        model:
+          type: string
+          example: TUCSON
+        cryptocurrency:
+          type: string
+          example: BTC
+        priceUsd:
+          type: number
+          example: 25000
+        priceCryptocurrency:
+          type: number
+          example: 1
+        date:
+          type: string
+          example: '2023-06-02T12:01:45'
+        purchaseId:
+          type: string
+          example: yyy-yyy-yyy-yyy
+    PostPurchaseReportRequest:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/PostPurchaseReportRequestData'
+    PostPurchaseReportRequestData:
+      type: object
+      required:
+        - date
+        - model
+        - cryptocurrency
+      properties:
+        date:
+          type: string
+          format: date
+          example: '2023-06-02'
+        model:
+          type: string
+          example: TUCSON
+        cryptocurrency:
+          type: string
+          example: BTC
+    PostPurchaseReportResponse:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostPurchaseReportResponseData'
+    PostPurchaseReportResponseData:
+      type: object
+      required:
+        - date
+        - model
+        - cryptocurrency
+        - usdAmount
+        - cryptocurrencyAmount
+      properties:
+        date:
+          type: string
+          example: '2023-06-02'
+        model:
+          type: string
+          example: TUCSON
+        cryptocurrency:
+          type: string
+          example: BTC
+        usdAmount:
+          type: number
+          example: 245000
+        cryptocurrencyAmount:
+          type: number
+          example: 5

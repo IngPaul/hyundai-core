@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  api:
+    image: spring-boot/hyu-api-core
+#    network_mode: bridge
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/purchase_hyu_db
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: mypass
+    depends_on:
+      - db
+      - db_redis
+  db:
+    image: postgres:14-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypass
+      POSTGRES_DB: purchase_hyu_db
+  db_redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"

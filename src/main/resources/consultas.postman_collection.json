@@ -1,0 +1,114 @@
+{
+	"info": {
+		"_postman_id": "77e5ded1-c32e-4db5-b95f-c0985ea4da49",
+		"name": "consultas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24887491",
+		"_collection_link": "https://red-escape-477892.postman.co/workspace/HYUNDAI-TEST~59fe02bc-ae31-4b08-85d6-d8d7447e8525/collection/24887491-77e5ded1-c32e-4db5-b95f-c0985ea4da49?action=share&creator=24887491&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "retrieve",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"data\": {\r\n    \"model\": \"TUCSON\",\r\n    \"cryptoCurrency\": \"BTC\"\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8085/hyu-api-core/vehicle-models/retrieve",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"hyu-api-core",
+						"vehicle-models",
+						"retrieve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "purchase",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"data\": {\r\n    \"convertionId\": \"xxx-xxx-xxx-xxxx\",\r\n    \"fullName\": \"Juan Perez\",\r\n    \"version\": \"TUCSON TL\",\r\n    \"model\": \"TUCSON\",\r\n    \"cryptocurrency\": \"BTC\"\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8085/hyu-api-core/vehicle-models/purchase",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"hyu-api-core",
+						"vehicle-models",
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "report",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"data\": {\r\n    \"date\": \"2023-06-02\",\r\n    \"model\": \"TUCSON\",\r\n    \"cryptocurrency\": \"BTC\"\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8085/hyu-api-core/vehicle-models/purchase/report",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"hyu-api-core",
+						"vehicle-models",
+						"purchase",
+						"report"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
