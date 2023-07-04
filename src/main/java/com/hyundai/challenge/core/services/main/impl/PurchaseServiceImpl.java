@@ -1,15 +1,13 @@
 package com.hyundai.challenge.core.services.main.impl;
 
-import com.hyundai.challenge.configuration.handler.error.CoreError;
-import com.hyundai.challenge.core.mapper.PurchaseMapper;
-import com.hyundai.challenge.core.mapper.VehicleMapper;
-import com.hyundai.challenge.core.repositories.PurchaseRepository;
+import com.hyundai.hexchallenge.configuration.handler.error.CoreError;
+import com.hyundai.hexchallenge.adapters.mapper.PurchaseMapper;
+import com.hyundai.hexchallenge.adapters.mapper.VehicleMapper;
+import com.hyundai.hexchallenge.adapters.out.dbs.sql.postgres.springdata.repositories.PurchaseRepository;
 import com.hyundai.challenge.core.services.main.PurchaseService;
 import com.hyundai.challenge.core.services.main.RetrieveVehicleModelService;
 import com.hyundai.challenge.model.PostPurchaseVehicleModelRequest;
 import com.hyundai.challenge.model.PostPurchaseVehicleModelResponse;
-import com.hyundai.challenge.core.entities.VehiclePurchase;
-import com.hyundai.challenge.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

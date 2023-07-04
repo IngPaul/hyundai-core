@@ -3,7 +3,7 @@ package com.hyundai.challenge.core.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hyundai.challenge.configuration.handler.error.CoreError;
+import com.hyundai.hexchallenge.configuration.handler.error.CoreError;
 import com.hyundai.challenge.model.VehicleVersion;
 
 import java.util.List;

@@ -2,12 +2,10 @@ package com.hyundai.challenge.core.services.main.impl;
 
 import Util.MockData;
 import com.hyundai.challenge.core.enums.VehicleModelEnum;
-import com.hyundai.challenge.core.services.common.CacheVehicleVersionService;
+import com.hyundai.hexchallenge.adapters.out.dbs.memory.redis.CacheVehicleVersionService;
 import com.hyundai.challenge.core.services.common.ConversionService;
 import com.hyundai.challenge.dto.vehicle.VehicleModelDto;
-import com.hyundai.challenge.external.webclient.ModelVehicleClient;
-import com.hyundai.challenge.model.PostVehicleModelRetrieveRequest;
-import com.hyundai.challenge.model.PostVehicleModelRetrieveResponse;
+import com.hyundai.hexchallenge.adapters.out.webclients.restClient.webclient.ModelVehicleClient;
 import com.hyundai.challenge.model.VehicleVersion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,14 +14,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.util.Arrays;
 @ExtendWith(MockitoExtension.class)
 class RetrieveVehicleModelServiceImplTest {

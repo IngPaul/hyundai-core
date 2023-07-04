@@ -1,8 +1,8 @@
 package com.hyundai.challenge.core.services.main.impl;
 
 import Util.MockData;
-import com.hyundai.challenge.core.entities.VehiclePurchase;
-import com.hyundai.challenge.core.repositories.PurchaseRepository;
+import com.hyundai.hexchallenge.adapters.out.dbs.sql.postgres.springdata.entities.VehiclePurchase;
+import com.hyundai.hexchallenge.adapters.out.dbs.sql.postgres.springdata.repositories.PurchaseRepository;
 import com.hyundai.challenge.core.services.main.RetrieveVehicleModelService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

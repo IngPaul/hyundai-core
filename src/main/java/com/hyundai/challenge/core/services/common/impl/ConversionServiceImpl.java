@@ -2,7 +2,7 @@ package com.hyundai.challenge.core.services.common.impl;
 
 import com.hyundai.challenge.core.enums.CryptoCurrencyEnum;
 import com.hyundai.challenge.core.services.common.ConversionService;
-import com.hyundai.challenge.core.services.common.RetrievePriceCryptoCurrency;
+import com.hyundai.hexchallenge.adapters.out.webclients.restClient.ClientServicesWithFallback.RetrievePriceCryptoCurrency;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

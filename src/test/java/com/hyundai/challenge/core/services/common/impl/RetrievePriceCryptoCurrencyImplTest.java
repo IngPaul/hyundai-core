@@ -2,11 +2,10 @@ package com.hyundai.challenge.core.services.common.impl;
 
 import Util.MockData;
 import com.hyundai.challenge.core.enums.CryptoCurrencyEnum;
-import com.hyundai.challenge.dto.price.coinlore.PriceLoreDto;
 import com.hyundai.challenge.dto.price.livecoin.PriceLiveDto;
-import com.hyundai.challenge.external.webclient.CoinLoreClient;
-import com.hyundai.challenge.external.webclient.LiveCoinWatchClient;
-import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
+import com.hyundai.hexchallenge.adapters.out.webclients.restClient.webclient.RetrievePriceCryptoCurrencyImpl;
+import com.hyundai.hexchallenge.adapters.out.webclients.restClient.webclient.CoinLoreClient;
+import com.hyundai.hexchallenge.adapters.out.webclients.restClient.webclient.LiveCoinWatchClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

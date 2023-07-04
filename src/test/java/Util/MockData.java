@@ -1,6 +1,6 @@
 package Util;
 
-import com.hyundai.challenge.core.entities.VehiclePurchase;
+import com.hyundai.hexchallenge.adapters.out.dbs.sql.postgres.springdata.entities.VehiclePurchase;
 import com.hyundai.challenge.dto.price.livecoin.DataPriceLiveDto;
 import com.hyundai.challenge.dto.price.livecoin.PriceLiveDto;
 import com.hyundai.challenge.model.*;

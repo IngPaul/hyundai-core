@@ -2,8 +2,8 @@ package com.hyundai.challenge.core.services.common.impl;
 
 import Util.MockData;
 import com.hyundai.challenge.core.util.VehicleVersionParse;
-import com.hyundai.challenge.model.PostPurchaseVehicleModelRequest;
 import com.hyundai.challenge.model.VehicleVersion;
+import com.hyundai.hexchallenge.adapters.out.dbs.memory.redis.CacheVehicleVersionServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class CacheVehicleVersionServiceImplTest {
     @Mock private ReactiveRedisTemplate<String, String> redisTemplate;

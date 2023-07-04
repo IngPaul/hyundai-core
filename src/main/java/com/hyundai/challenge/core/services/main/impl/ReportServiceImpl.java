@@ -1,12 +1,12 @@
 package com.hyundai.challenge.core.services.main.impl;
 
-import com.hyundai.challenge.core.mapper.PurchaseMapper;
-import com.hyundai.challenge.core.repositories.PurchaseRepository;
+import com.hyundai.hexchallenge.adapters.mapper.PurchaseMapper;
+import com.hyundai.hexchallenge.adapters.out.dbs.sql.postgres.springdata.repositories.PurchaseRepository;
 import com.hyundai.challenge.core.services.main.ReportService;
 import com.hyundai.challenge.core.services.main.RetrieveVehicleModelService;
 import com.hyundai.challenge.model.PostPurchaseReportResponse;
 import com.hyundai.challenge.model.PostPurchaseReportResponseData;
-import com.hyundai.challenge.core.entities.VehiclePurchase;
+import com.hyundai.hexchallenge.adapters.out.dbs.sql.postgres.springdata.entities.VehiclePurchase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;

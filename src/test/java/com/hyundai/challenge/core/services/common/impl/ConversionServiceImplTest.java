@@ -1,6 +1,7 @@
 package com.hyundai.challenge.core.services.common.impl;
 
 import com.hyundai.challenge.core.enums.CryptoCurrencyEnum;
+import com.hyundai.hexchallenge.adapters.out.webclients.restClient.webclient.RetrievePriceCryptoCurrencyImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,10 +14,10 @@ import reactor.test.StepVerifier;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class ConversionServiceImplTest {
-    @Mock RetrievePriceCryptoCurrencyImpl retrievePriceCryptoCurrency;
+    @Mock
+    RetrievePriceCryptoCurrencyImpl retrievePriceCryptoCurrency;
     @InjectMocks private ConversionServiceImpl conversionService;
 
     @BeforeEach

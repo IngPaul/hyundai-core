@@ -7,6 +7,6 @@ import java.time.Duration;
 import java.util.List;
 
 @FunctionalInterface
-public interface SaveListVehicleModelsInMemoryPort {
+public interface SaveListModelVehiclesInMemoryPort {
     Mono<List<VehicleVersion>> save(List<VehicleVersion> list, String conversionId, Duration expiration);
 }

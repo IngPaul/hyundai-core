@@ -1,16 +1,15 @@
 package com.hyundai.challenge.core.services.main.impl;
 
-import com.hyundai.challenge.configuration.handler.error.CoreError;
+import com.hyundai.hexchallenge.configuration.handler.error.CoreError;
 import com.hyundai.challenge.core.enums.VehicleModelEnum;
-import com.hyundai.challenge.core.mapper.VehicleMapper;
-import com.hyundai.challenge.core.services.common.CacheVehicleVersionService;
+import com.hyundai.hexchallenge.adapters.mapper.VehicleMapper;
+import com.hyundai.hexchallenge.adapters.out.dbs.memory.redis.CacheVehicleVersionService;
 import com.hyundai.challenge.core.services.common.ConversionService;
 import com.hyundai.challenge.core.services.main.RetrieveVehicleModelService;
-import com.hyundai.challenge.external.webclient.ModelVehicleClient;
+import com.hyundai.hexchallenge.adapters.out.webclients.restClient.webclient.ModelVehicleClient;
 import com.hyundai.challenge.model.DataResponse;
 import com.hyundai.challenge.model.PostVehicleModelRetrieveResponse;
 import com.hyundai.challenge.model.VehicleVersion;
-import com.hyundai.challenge.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

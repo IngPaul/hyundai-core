@@ -1,6 +1,6 @@
 package com.hyundai.challenge.external.webclient;
 
-import org.junit.jupiter.api.Assertions;
+import com.hyundai.hexchallenge.adapters.out.webclients.restClient.webclient.ModelVehicleClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.test.StepVerifier;
 
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureWebTestClient
 class ModelVehicleClientTest {

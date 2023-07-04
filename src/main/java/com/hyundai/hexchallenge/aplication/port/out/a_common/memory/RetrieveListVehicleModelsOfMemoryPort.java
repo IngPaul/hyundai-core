@@ -4,6 +4,6 @@ import com.hyundai.challenge.model.VehicleVersion;
 import reactor.core.publisher.Flux;
 
 @FunctionalInterface
-public interface RetrieveListVehicleModelsOfMemoryPort {
+public interface RetrieveListModelVehiclesOfMemoryPort {
     Flux<VehicleVersion> findByConversionId(String conversionId);
 }
