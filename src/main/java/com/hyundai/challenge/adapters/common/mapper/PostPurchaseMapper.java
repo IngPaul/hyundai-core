@@ -13,6 +13,7 @@ public interface PostPurchaseMapper {
     PostPurchaseMapper INSTANCE = Mappers.getMapper(PostPurchaseMapper.class);
 
     @Mapping( target = "date", expression = "java(java.time.format.DateTimeFormatter.ISO_DATE.format(domain.getDate()))")
+    @Mapping( target = "purchaseId", expression = "java(domain.getId().toString())")
     PostPurchaseVehicleModel mapToPostPurchaseModel(ModelVehicleDomain domain);
 
 }

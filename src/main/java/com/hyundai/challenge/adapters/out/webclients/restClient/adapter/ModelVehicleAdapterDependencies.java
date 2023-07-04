@@ -54,6 +54,7 @@ public class ModelVehicleAdapterDependencies implements RetrieveModelVehiclesPor
         return priceCryptoCurrencyClient.getPrice(cryptocurrency).map(priceCryptocurrency->{
             BigDecimal priceVehicleInCryptocurrency = modelVehicleDomain.getPriceUsd().divide(priceCryptocurrency, 2, DOWN);
             modelVehicleDomain.setPriceCryptocurrency(priceVehicleInCryptocurrency);
+            modelVehicleDomain.setCryptocurrency(cryptocurrency.getName());
             return modelVehicleDomain;
         });
     }

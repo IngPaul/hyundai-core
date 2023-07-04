@@ -8,12 +8,14 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Generated
-public class ModelVehicleDomain extends GenericEntity {
+public class ModelVehicleDomain extends GenericDomain{
+    private String conversionId;
     private String fullName;
     private String version;
     private String model;

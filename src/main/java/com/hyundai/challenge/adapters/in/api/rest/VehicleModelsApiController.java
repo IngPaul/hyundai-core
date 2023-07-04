@@ -46,12 +46,12 @@ public class VehicleModelsApiController implements VehicleModelsApi {
     public Mono<ResponseEntity<PostPurchaseVehicleModelResponse>> postPurchaseVehicleModel(Mono<PostPurchaseVehicleModelRequest> postPurchaseVehicleModelRequest, ServerWebExchange exchange) {
         return postPurchaseVehicleModelRequest
                 .flatMap(request -> {
-                    PostPurchaseVehicleModelRequest xx = request;
                     ModelVehicleDomain modelVehicleDomain = new ModelVehicleDomain();
                     modelVehicleDomain.setModel(request.getData().getModel());
                     modelVehicleDomain.setCryptocurrency(request.getData().getCryptocurrency());
                     modelVehicleDomain.setVersion(request.getData().getVersion());
                     modelVehicleDomain.setFullName(request.getData().getFullName());
+                    modelVehicleDomain.setConversionId(request.getData().getConvertionId());
                     return vehiclePurchaseSaveUseCase.purchase(modelVehicleDomain, request.getData().getConvertionId());
                 })
                 .map(PostPurchaseMapper.INSTANCE::mapToPostPurchaseModel)
@@ -66,11 +66,15 @@ public class VehicleModelsApiController implements VehicleModelsApi {
                         retrieveModelVehiclesUseCase
                                 .retrieveByModelAndCrypto(request.getData().getModel(), request.getData().getCryptoCurrency())
                                 .collectList()
-                                .map(list -> new Tuple4(list, list.get(0).getMsg(), list.get(0).getId(), request.getData().getModel()))
+                                .map(list -> new Tuple4(list, list.get(0).getMsg(), list.get(0).getId(), request.getData().getModel(),request.getData().getCryptoCurrency()))
                 )
                 .map(data -> {
                     List<VehicleVersion> listData = data.list.stream()
                             .map(domain -> VehicleVersionMapper.INSTANCE.toVehicleVersion(domain, data.getModel()))
+                            .map(vehicleVersionInBuild->{
+                                vehicleVersionInBuild.setCryptocurrency(data.cryptoCurrency);
+                                return vehicleVersionInBuild;
+                            })
                             .collect(Collectors.toList());
                     return new DataResponse()
                             .versions(listData)
@@ -87,5 +91,6 @@ public class VehicleModelsApiController implements VehicleModelsApi {
         private String conversionTimelife;
         private UUID id;
         private String model;
+        private String cryptoCurrency;
     }
 }
