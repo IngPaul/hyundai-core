@@ -1,5 +1,5 @@
 package com.hyundai.challenge.external.webclient;
-import com.hyundai.hexchallenge.adapters.out.webclients.restClient.webclient.CoinLoreClient;
+import com.hyundai.challenge.adapters.out.webclients.restClient.webclient.CoinLoreClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;

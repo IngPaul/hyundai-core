@@ -1,8 +1,8 @@
 package Util;
 
-import com.hyundai.hexchallenge.adapters.out.dbs.sql.postgres.springdata.entities.VehiclePurchase;
-import com.hyundai.challenge.dto.price.livecoin.DataPriceLiveDto;
-import com.hyundai.challenge.dto.price.livecoin.PriceLiveDto;
+import com.hyundai.challenge.adapters.out.dbs.sql.postgres.springdata.entities.VehiclePurchase;
+import com.hyundai.challenge.adapters.common.dto.price.livecoin.DataPriceLiveDto;
+import com.hyundai.challenge.adapters.common.dto.price.livecoin.PriceLiveDto;
 import com.hyundai.challenge.model.*;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.mock.web.server.MockServerWebExchange;
