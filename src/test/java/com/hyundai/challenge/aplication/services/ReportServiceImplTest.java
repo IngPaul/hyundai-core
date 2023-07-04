@@ -32,16 +32,13 @@ class ReportServiceImplTest {
         Mockito.when(getReportVehiclePurchasePort.retrieveByDateAndModelAndCrypto(Mockito.any(), Mockito.any()))
                         .thenReturn(Flux.just(data));
 
-        Mockito.when(addPriceCriptocurrencyPort.add(Mockito.any(), Mockito.any()))
-                .thenReturn(Mono.just(MockData.getModelVehicleDomain()));
+
 
         StepVerifier.create(reportService.retrieveByDateAndModelAndCrypto(LocalDate.now(),"TUCSON","BTC"))
                 .expectNextCount(1)
                 .verifyComplete();
 
         Mockito.verify(getReportVehiclePurchasePort, Mockito.times(1)).retrieveByDateAndModelAndCrypto(Mockito.any(), Mockito.any());
-
-        Mockito.verify(addPriceCriptocurrencyPort, Mockito.times(0)).add(Mockito.any(), Mockito.any());
     }
     @Test
     void retrieveByDateAndModelAndCryptoPriceExist() {

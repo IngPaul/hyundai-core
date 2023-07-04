@@ -7,13 +7,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import reactor.test.StepVerifier;
 
 import java.time.LocalDate;
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest()
 class PurchaseRepositoryTest {
         @Autowired
-        PurchaseRepository purchaseRepository;
+        private PurchaseRepository purchaseRepository;
         @BeforeEach
         void setUp() {
         }
