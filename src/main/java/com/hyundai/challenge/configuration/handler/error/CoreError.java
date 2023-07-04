@@ -15,10 +15,10 @@ public class CoreError {
             = new ResponseStatusException(HttpStatus.CONFLICT,"El objeto de tipo vehicleVersion tiene un problema al momento de deserializar" );
 
     public static final ResponseStatusException MODEL_NOT_FOUND
-            = new ResponseStatusException(HttpStatus.NOT_FOUND,"El Api no maneja el modelo requerido enviada" );
+            = new ResponseStatusException(HttpStatus.BAD_REQUEST,"El Api no maneja el modelo requerido enviada" );
 
     public static final ResponseStatusException CRYPTOCURRENCY_NOT_FOUND
-            = new ResponseStatusException(HttpStatus.NOT_FOUND,"El Api no maneja la criptocurrency enviada" );
+            = new ResponseStatusException(HttpStatus.BAD_REQUEST,"El Api no maneja la criptocurrency enviada" );
 
     public static final ResponseStatusException VERSION_NOT_FOUND
             = new ResponseStatusException(HttpStatus.NOT_FOUND,"La version especificada del modelo vehicular no existe" );
