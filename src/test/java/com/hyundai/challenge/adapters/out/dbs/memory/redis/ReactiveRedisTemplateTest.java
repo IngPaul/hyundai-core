@@ -1,4 +1,4 @@
-package com.hyundai.challenge.redis;
+package com.hyundai.challenge.adapters.out.dbs.memory.redis;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

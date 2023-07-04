@@ -1,5 +1,6 @@
-package com.hyundai.challenge.external.webclient;
-import com.hyundai.challenge.adapters.out.webclients.restClient.webclient.LiveCoinWatchClient;
+package com.hyundai.challenge.adapters.out.webclients.restClient.webclient;
+
+import com.hyundai.challenge.adapters.out.webclients.restClient.webclient.ModelVehicleClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -9,18 +10,16 @@ import reactor.test.StepVerifier;
 
 @SpringBootTest
 @AutoConfigureWebTestClient
-public class LiveCoinWatchClientTest {
-
+class ModelVehicleClientTest {
     @Autowired
     private WebTestClient webTestClient;
-
     @Autowired
-    private LiveCoinWatchClient liveCoinWatchClient;
-
+    private ModelVehicleClient modelVehicleClient;
     @Test
-    public void testGetPrice() {
-        StepVerifier.create(liveCoinWatchClient.getPrice("BTC", "USD"))
+    void getModelVehicle() {
+        StepVerifier.create(modelVehicleClient.getModelVehicle(1036L).collectList())
                 .expectNextCount(1)
-                .verifyComplete();
+                .expectComplete()
+                .verify();
     }
 }

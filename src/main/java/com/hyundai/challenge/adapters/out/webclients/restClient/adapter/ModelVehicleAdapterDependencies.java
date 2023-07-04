@@ -14,9 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
 import java.math.BigDecimal;
-
 import static java.math.RoundingMode.DOWN;
 
 @AllArgsConstructor
@@ -51,12 +49,13 @@ public class ModelVehicleAdapterDependencies implements RetrieveModelVehiclesPor
     }
 
     private Mono<ModelVehicleDomain> addPriceInModel(ModelVehicleDomain modelVehicleDomain,CryptoCurrencyEnum cryptocurrency ){
-        return priceCryptoCurrencyClient.getPrice(cryptocurrency).map(priceCryptocurrency->{
-            BigDecimal priceVehicleInCryptocurrency = modelVehicleDomain.getPriceUsd().divide(priceCryptocurrency, 2, DOWN);
-            modelVehicleDomain.setPriceCryptocurrency(priceVehicleInCryptocurrency);
-            modelVehicleDomain.setCryptocurrency(cryptocurrency.getName());
-            return modelVehicleDomain;
-        });
+        return priceCryptoCurrencyClient.getPrice(cryptocurrency)
+                .map(priceCryptocurrency->{
+                    BigDecimal priceVehicleInCryptocurrency = modelVehicleDomain.getPriceUsd().divide(priceCryptocurrency, 2, DOWN);
+                    modelVehicleDomain.setPriceCryptocurrency(priceVehicleInCryptocurrency);
+                    modelVehicleDomain.setCryptocurrency(cryptocurrency.getName());
+                    return modelVehicleDomain;
+                });
     }
 
     @Override

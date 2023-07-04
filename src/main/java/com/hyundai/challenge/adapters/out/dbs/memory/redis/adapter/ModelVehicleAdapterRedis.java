@@ -3,7 +3,7 @@ package com.hyundai.challenge.adapters.out.dbs.memory.redis.adapter;
 import com.hyundai.challenge.adapters.common.mapper.VehicleVersionMapper;
 import com.hyundai.challenge.model.VehicleVersion;
 import com.hyundai.challenge.adapters.common.mapper.ModelVehicleDomainMapper;
-import com.hyundai.challenge.adapters.out.dbs.memory.redis.CacheVehicleVersionRepository;
+import com.hyundai.challenge.adapters.out.dbs.memory.redis.repository.CacheVehicleVersionRepository;
 import com.hyundai.challenge.aplication.port.out.a_common.memory.RetrieveVersionVehicleInMemoryPort;
 import com.hyundai.challenge.aplication.port.out.a_common.memory.SaveListModelVehiclesInMemoryPort;
 import com.hyundai.challenge.domain.ModelVehicleDomain;

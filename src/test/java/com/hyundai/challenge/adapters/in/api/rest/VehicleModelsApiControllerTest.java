@@ -1,4 +1,6 @@
-package com.hyundai.challenge.controllers;
+package com.hyundai.challenge.adapters.in.api.rest;
+
+
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-
 import static Util.MockData.*;
 import static org.hamcrest.core.StringRegularExpression.matchesRegex;
-
 @SpringBootTest
 @AutoConfigureWebTestClient
 public class VehicleModelsApiControllerTest {
@@ -55,5 +55,17 @@ public class VehicleModelsApiControllerTest {
     public void testAll() {
         testPurchase(testRetrieve());
         testReport();
+    }
+
+    @Test
+    void postPurchaseReport() {
+    }
+
+    @Test
+    void postPurchaseVehicleModel() {
+    }
+
+    @Test
+    void postVehicleRetrieveModel() {
     }
 }

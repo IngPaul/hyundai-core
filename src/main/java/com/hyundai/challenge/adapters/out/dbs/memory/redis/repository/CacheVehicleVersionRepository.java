@@ -1,4 +1,4 @@
-package com.hyundai.challenge.adapters.out.dbs.memory.redis;
+package com.hyundai.challenge.adapters.out.dbs.memory.redis.repository;
 
 import com.hyundai.challenge.model.VehicleVersion;
 import com.hyundai.challenge.adapters.common.util.VehicleVersionParse;

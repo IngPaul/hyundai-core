@@ -1,8 +1,10 @@
 package Util;
 
+import com.hyundai.challenge.adapters.common.dto.vehicle.VehicleModelDto;
 import com.hyundai.challenge.adapters.out.dbs.sql.postgres.springdata.entities.VehiclePurchase;
 import com.hyundai.challenge.adapters.common.dto.price.livecoin.DataPriceLiveDto;
 import com.hyundai.challenge.adapters.common.dto.price.livecoin.PriceLiveDto;
+import com.hyundai.challenge.domain.ModelVehicleDomain;
 import com.hyundai.challenge.model.*;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.mock.web.server.MockServerWebExchange;
@@ -127,5 +129,33 @@ public class MockData {
 
     public static PriceLiveDto getPriceLiveDto() {
         return PriceLiveDto.builder().data(DataPriceLiveDto.builder().lastPrice(BigDecimal.valueOf(20000)).build()).build();
+    }
+
+    public static ModelVehicleDomain getModelVehicleDomain() {
+        ModelVehicleDomain modelVehicleDomain = new ModelVehicleDomain();
+        modelVehicleDomain.setId(UUID.randomUUID());
+        modelVehicleDomain.setConversionId(UUID.randomUUID().toString());
+        modelVehicleDomain.setFullName("Hyundai Sonata");
+        modelVehicleDomain.setVersion("1.5");
+        modelVehicleDomain.setModel("TUCSON");
+        modelVehicleDomain.setMsg("Example message");
+        modelVehicleDomain.setCryptocurrency("BTC");
+        modelVehicleDomain.setPriceUsd(new BigDecimal("25000"));
+        modelVehicleDomain.setPriceCryptocurrency(new BigDecimal("5"));
+        modelVehicleDomain.setDate(LocalDate.now());
+        return modelVehicleDomain;
+    }
+
+    public static VehicleModelDto getVehicleModelDto() {
+        VehicleModelDto vehicleModelDto = new VehicleModelDto();
+        vehicleModelDto.setCode(123);
+        vehicleModelDto.setName("Hyundai Tucson");
+        vehicleModelDto.setYear(2022);
+        vehicleModelDto.setPriceUsd(25000.00);
+        vehicleModelDto.setBond(1000.00);
+        vehicleModelDto.setFinalPrice(24000.00);
+        vehicleModelDto.setDisability(0);
+        vehicleModelDto.setSecurityCode("ABC123");
+        return vehicleModelDto;
     }
 }
