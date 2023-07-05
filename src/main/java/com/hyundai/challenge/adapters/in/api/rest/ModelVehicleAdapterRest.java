@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class VehicleModelsApiController implements VehicleModelsApi {
+public class ModelVehicleAdapterRest implements VehicleModelsApi {
     private final VehiclePurchaseSaveUseCase vehiclePurchaseSaveUseCase;
     private final RetrieveModelVehiclesUseCase retrieveModelVehiclesUseCase;
     private final GetReportVehiclePurchaseUseCase getReportVehiclePurchaseUseCase;
