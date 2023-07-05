@@ -28,7 +28,7 @@ Sigue estos pasos para ejecutar la API Hyundai Core de forma local:
 3. Abre el proyecto utilizando un IDE como IntelliJ.
 4. Ejecuta el proyecto para iniciarlo.
 
-## Endpoints del contrato Swagger
+## Endpoints del API
 
 A continuación se detallan los endpoints disponibles en el contrato Swagger de esta API:
 
