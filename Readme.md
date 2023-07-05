@@ -32,7 +32,7 @@ Sigue estos pasos para ejecutar la API Hyundai Core de forma local:
 
 A continuación se detallan los endpoints disponibles en el contrato Swagger de esta API:
 
-### Retrieve vehicles version by model and cryptocurrency <span style="color:red">(Conversion)</span>
+### Retrieve vehicles version by model and cryptocurrency <span style="color:red"><ins><em>(Conversion)</em></ins></span>
 
 - URL: `POST /vehicle-models/retrieve`
 - Descripción: Recupera las versiones de los vehículos por modelo y criptomoneda.
@@ -47,7 +47,7 @@ A continuación se detallan los endpoints disponibles en el contrato Swagger de 
     - `404`: No encontrado.
     - `500`: Error interno del servidor.
 
-### Purchase vehicle <span style="color:red">(Compra)</span>
+### Purchase vehicle <span style="color:red"><ins><em>(Compra)</em></ins></span>
 
 - URL: `POST /vehicle-models/purchase`
 - Descripción: Realiza la compra de un vehículo.
@@ -65,7 +65,7 @@ A continuación se detallan los endpoints disponibles en el contrato Swagger de 
     - `404`: No encontrado.
     - `500`: Error interno del servidor.
 
-### Purchase report <span style="color:red">(Reporte)</span>
+### Purchase report <span style="color:red"><ins><em>(Reporte)</em></ins></span>
 
 - URL: `POST /vehicle-models/purchase/report`
 - Descripción: Genera un informe de compras de vehículos.
