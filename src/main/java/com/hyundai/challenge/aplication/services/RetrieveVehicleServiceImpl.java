@@ -14,7 +14,6 @@ import reactor.core.publisher.Flux;
 import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -41,6 +40,6 @@ public class RetrieveVehicleServiceImpl implements RetrieveModelVehiclesUseCase 
             vehicle.setConversionId(uuid.toString());
             vehicle.setMsg("20 segundos");
             return vehicle;
-        }).collect(Collectors.toUnmodifiableList());
+        }).toList();
     }
 }

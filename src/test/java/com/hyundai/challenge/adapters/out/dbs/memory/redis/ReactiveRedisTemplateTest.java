@@ -1,5 +1,7 @@
 package com.hyundai.challenge.adapters.out.dbs.memory.redis;
 
+import io.lettuce.core.internal.Futures;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,9 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 @SpringJUnitConfig
@@ -59,22 +64,17 @@ import java.time.Duration;
 
     @Test
      void testExpireKeyInRedis() {
-        Duration expiration = Duration.ofSeconds(5);
+        Duration expiration = Duration.ofSeconds(3);
 
         Mono<Boolean> result = reactiveRedisTemplate.expire(KEY, expiration);
         StepVerifier.create(result)
                 .expectNext(true)
                 .verifyComplete();
-        try {
-            Thread.sleep(expiration.toMillis() + 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        Mono<String> valueResult = reactiveRedisTemplate.opsForValue().get(KEY);
-
-        StepVerifier.create(valueResult)
-                .expectNextCount(0)
-                .verifyComplete();
+        Awaitility.await().atMost(expiration.plusSeconds(1)).untilAsserted(() -> {
+            Mono<String> valueResult = reactiveRedisTemplate.opsForValue().get(KEY);
+            StepVerifier.create(valueResult)
+                    .expectNextCount(0)
+                    .verifyComplete();
+        });
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,7 +25,7 @@ public class VehicleModelsApiController implements VehicleModelsApi {
     @Override
     public Mono<ResponseEntity<PostPurchaseReportResponse>> postPurchaseReport(Mono<PostPurchaseReportRequest> postPurchaseReportRequest, ServerWebExchange exchange) {
         return postPurchaseReportRequest
-                .map(request->request.getData())
+                .map(PostPurchaseReportRequest::getData)
                 .flatMap(request-> getReportVehiclePurchaseUseCase.retrieveByDateAndModelAndCrypto(request.getDate(),
                                                                                                     request.getModel(),
                                                                                                     request.getCryptocurrency())
@@ -39,7 +38,7 @@ public class VehicleModelsApiController implements VehicleModelsApi {
     @Override
     public Mono<ResponseEntity<PostPurchaseVehicleModelResponse>> postPurchaseVehicleModel(Mono<PostPurchaseVehicleModelRequest> postPurchaseVehicleModelRequest, ServerWebExchange exchange) {
         return postPurchaseVehicleModelRequest
-                .map(request->request.getData())
+                .map(PostPurchaseVehicleModelRequest::getData)
                 .map(PostPurchaseVehicleModelRequestDataMapper.INSTANCE::toModelVehicleDomain)
                 .flatMap(modelVehicleDomain->vehiclePurchaseSaveUseCase.purchase(modelVehicleDomain, modelVehicleDomain.getConversionId()))
                 .map(PostPurchaseVehicleModelMapper.INSTANCE::mapToPostPurchaseModel)
@@ -58,7 +57,7 @@ public class VehicleModelsApiController implements VehicleModelsApi {
                 .map(data -> new DataResponse()
                             .versions(completeDataInList(data))
                             .conversionTimelife(data.getConversionTimelife())
-                            .convertionId(data.getConversionId().toString()))
+                            .convertionId(data.getConversionId()))
                 .map(dataResponse -> new PostVehicleModelRetrieveResponse().data(dataResponse))
                 .map(ResponseEntity::ok);
     }
@@ -66,6 +65,6 @@ public class VehicleModelsApiController implements VehicleModelsApi {
     private List<VehicleVersion> completeDataInList(Tuple3 data) {
         return data.getList().stream()
                 .map(domain -> VehicleVersionMapper.INSTANCE.toVehicleVersion(domain, domain.getModel()))
-                .collect(Collectors.toList());
+                .toList();
     }
 }

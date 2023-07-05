@@ -14,7 +14,6 @@ import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -32,7 +31,7 @@ public class ModelVehicleAdapterRedis implements RetrieveVersionVehicleInMemoryP
     @Override
     public Mono<List<ModelVehicleDomain>> save(List<ModelVehicleDomain> list, String conversionId, Duration expiration) {
         List<VehicleVersion> listToSave = list.stream().map(domain -> VehicleVersionMapper.INSTANCE.toVehicleVersion(domain, domain.getModel()))
-                .collect(Collectors.toUnmodifiableList());
+                .toList();
         return vehicleVersionRepository.save(listToSave, conversionId, expiration)
                 .thenReturn(list);
     }
