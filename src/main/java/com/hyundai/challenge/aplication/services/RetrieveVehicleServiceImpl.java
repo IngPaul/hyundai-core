@@ -38,7 +38,7 @@ public class RetrieveVehicleServiceImpl implements RetrieveModelVehiclesUseCase 
 
     private List<ModelVehicleDomain> completeInformation(List<ModelVehicleDomain> list, UUID uuid) {
         return list.stream().map(vehicle-> {
-            vehicle.setId(uuid);
+            vehicle.setConversionId(uuid.toString());
             vehicle.setMsg("20 segundos");
             return vehicle;
         }).collect(Collectors.toUnmodifiableList());

@@ -1,14 +1,12 @@
 package com.hyundai.challenge.adapters.in.api.rest;
 
 import com.hyundai.challenge.adapters.common.mapper.*;
+import com.hyundai.challenge.adapters.in.api.rest.dto.Tuple3;
 import com.hyundai.challenge.controllers.VehicleModelsApi;
 import com.hyundai.challenge.model.*;
 import com.hyundai.challenge.aplication.port.in.catalog.RetrieveModelVehiclesUseCase;
 import com.hyundai.challenge.aplication.port.in.purchase.VehiclePurchaseSaveUseCase;
 import com.hyundai.challenge.aplication.port.in.report.GetReportVehiclePurchaseUseCase;
-import com.hyundai.challenge.domain.ModelVehicleDomain;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +14,6 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -57,32 +54,18 @@ public class VehicleModelsApiController implements VehicleModelsApi {
                         retrieveModelVehiclesUseCase
                                 .retrieveByModelAndCrypto(request.getData().getModel(), request.getData().getCryptoCurrency())
                                 .collectList()
-                                .map(list -> new Tuple4(list, list.get(0).getMsg(), list.get(0).getId(), request.getData().getModel(),request.getData().getCryptoCurrency())))
+                                .map(list -> new Tuple3(list, list.get(0).getMsg(), list.get(0).getConversionId())))
                 .map(data -> new DataResponse()
                             .versions(completeDataInList(data))
-                            .conversionTimelife(data.list.get(0).getMsg())
-                            .convertionId(data.list.get(0).getId().toString()))
+                            .conversionTimelife(data.getConversionTimelife())
+                            .convertionId(data.getConversionId().toString()))
                 .map(dataResponse -> new PostVehicleModelRetrieveResponse().data(dataResponse))
                 .map(ResponseEntity::ok);
     }
 
-    private List<VehicleVersion> completeDataInList(Tuple4 data) {
-        return data.list.stream()
-                .map(domain -> VehicleVersionMapper.INSTANCE.toVehicleVersion(domain, data.getModel()))
-                .map(vehicleVersionInBuild->{
-                    vehicleVersionInBuild.setCryptocurrency(data.cryptoCurrency);
-                    return vehicleVersionInBuild;
-                })
+    private List<VehicleVersion> completeDataInList(Tuple3 data) {
+        return data.getList().stream()
+                .map(domain -> VehicleVersionMapper.INSTANCE.toVehicleVersion(domain, domain.getModel()))
                 .collect(Collectors.toList());
-    }
-
-    @Data
-    @AllArgsConstructor
-    private final class Tuple4{
-        private List<ModelVehicleDomain> list;
-        private String conversionTimelife;
-        private UUID id;
-        private String model;
-        private String cryptoCurrency;
     }
 }
