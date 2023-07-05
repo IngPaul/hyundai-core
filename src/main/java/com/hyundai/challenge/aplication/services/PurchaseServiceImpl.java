@@ -7,9 +7,10 @@ import com.hyundai.challenge.aplication.port.in.purchase.VehiclePurchaseSaveUseC
 import com.hyundai.challenge.aplication.port.out.a_common.memory.RetrieveVersionVehicleInMemoryPort;
 import com.hyundai.challenge.aplication.port.out.catalog.RetrieveVersionVehiclePort;
 import com.hyundai.challenge.aplication.port.out.purchase.VehiclePurchaseSavePort;
-import com.hyundai.challenge.domain.ModelVehicleDomain;
-import com.hyundai.challenge.domain.enums.CryptoCurrencyEnum;
-import com.hyundai.challenge.domain.enums.ModelVehicleEnum;
+import com.hyundai.challenge.domain.base.ModelVehicleDomain;
+import com.hyundai.challenge.domain.base.enums.CryptoCurrencyEnum;
+import com.hyundai.challenge.domain.base.enums.ModelVehicleEnum;
+import com.hyundai.challenge.domain.purchase.PurchaseVehicleDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -24,20 +25,23 @@ public class PurchaseServiceImpl implements VehiclePurchaseSaveUseCase {
     private final RetrieveVersionVehiclePort retrieveVersionVehiclePort;
     private final AddPriceCriptocurrencyPort addPriceCriptocurrencyPort;
 
-    public Mono<ModelVehicleDomain> purchase(ModelVehicleDomain modelVehicleDomain, String conversionId) {
-        ModelVehicleEnum modelVehicleEnum= com.hyundai.challenge.domain.enums.ModelVehicleEnum.fromName(modelVehicleDomain.getModel());
-        CryptoCurrencyEnum cryptoCurrencyEnum= CryptoCurrencyEnum.fromName(modelVehicleDomain.getCryptocurrency());
-        return retrieveVersionVehicleInMemoryPort.retrieveByConversionIdAndVersion(conversionId, modelVehicleEnum, modelVehicleDomain.getVersion())
-                .switchIfEmpty(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(modelVehicleEnum, cryptoCurrencyEnum,modelVehicleDomain.getVersion()))
+    public Mono<PurchaseVehicleDomain> purchase(PurchaseVehicleDomain modelVehicleDomain, String conversionId) {
+        ModelVehicleEnum modelVehicleEnum= ModelVehicleEnum.fromName(modelVehicleDomain.getModelVehicleDomain().getModel());
+        CryptoCurrencyEnum cryptoCurrencyEnum= CryptoCurrencyEnum.fromName(modelVehicleDomain.getModelVehicleDomain().getCryptocurrency());
+        return  retrieveVersionVehicleInMemoryPort.retrieveByConversionIdAndVersion(conversionId, modelVehicleEnum, modelVehicleDomain.getVersion())
+                .switchIfEmpty(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(modelVehicleEnum, cryptoCurrencyEnum, modelVehicleDomain.getVersion()))
                 .switchIfEmpty(Mono.error(CoreError.ERROR_IN_RETRIEVE_VEHICLE_NOT_FOUND))
-                .map(modelVehicleDomainRetrieve->copyData(modelVehicleDomain, modelVehicleDomainRetrieve))
-                .flatMap(modelVehicle -> addPriceCriptocurrencyPort.add(cryptoCurrencyEnum,modelVehicle))
-                .flatMap(vehiclePurchaseSavePort::purchase);
+                .map(modelVehicleDomainRetrieve -> copyData(modelVehicleDomain, modelVehicleDomainRetrieve))
+                .flatMap(modelVehicle -> addPriceCriptocurrencyPort.add(cryptoCurrencyEnum, modelVehicle.getModelVehicleDomain())
+                        .flatMap(vehiclePrice->{
+                            modelVehicle.setModelVehicleDomain(vehiclePrice);
+                            return vehiclePurchaseSavePort.purchase(modelVehicle);
+                        }));
     }
-    private ModelVehicleDomain copyData(ModelVehicleDomain target, ModelVehicleDomain source){
-        target.setCryptocurrency(source.getCryptocurrency());
-        target.setPriceCryptocurrency(source.getPriceCryptocurrency());
-        target.setPriceUsd(source.getPriceUsd());
+    private PurchaseVehicleDomain copyData(PurchaseVehicleDomain target, ModelVehicleDomain source){
+        target.getModelVehicleDomain().setCryptocurrency(source.getCryptocurrency());
+        target.getModelVehicleDomain().setPriceCryptocurrency(source.getPriceCryptocurrency());
+        target.getModelVehicleDomain().setPriceUsd(source.getPriceUsd());
         target.setDate(LocalDate.now());
         return target;
     }

@@ -1,4 +1,4 @@
-package com.hyundai.challenge.domain;
+package com.hyundai.challenge.domain.base;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,17 +12,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Generated
-public class ModelVehicleDomain extends GenericDomain{
-    private String conversionId;
-    private String fullName;
+public abstract class ModelVehicleDomain extends GenericDomain {
     private String version;
     private String model;
-    private String msg;
     private String cryptocurrency;
     private BigDecimal priceUsd;
     private BigDecimal priceCryptocurrency;
-    private LocalDate date;
     public boolean validateDomainDataVehicle(){
         return (this.priceUsd!=null);
     }
+
 }

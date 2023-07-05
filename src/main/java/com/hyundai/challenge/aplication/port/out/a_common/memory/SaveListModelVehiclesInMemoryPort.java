@@ -1,6 +1,6 @@
 package com.hyundai.challenge.aplication.port.out.a_common.memory;
 
-import com.hyundai.challenge.domain.ModelVehicleDomain;
+import com.hyundai.challenge.domain.base.ModelVehicleDomain;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;

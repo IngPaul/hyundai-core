@@ -6,9 +6,9 @@ import com.hyundai.challenge.aplication.port.out.a_common.memory.RetrieveVersion
 import com.hyundai.challenge.aplication.port.out.catalog.RetrieveVersionVehiclePort;
 import com.hyundai.challenge.aplication.port.out.purchase.VehiclePurchaseSavePort;
 import com.hyundai.challenge.configuration.handler.error.CoreError;
-import com.hyundai.challenge.domain.ModelVehicleDomain;
-import com.hyundai.challenge.domain.enums.CryptoCurrencyEnum;
-import com.hyundai.challenge.domain.enums.ModelVehicleEnum;
+import com.hyundai.challenge.domain.base.ModelVehicleDomain;
+import com.hyundai.challenge.domain.base.enums.CryptoCurrencyEnum;
+import com.hyundai.challenge.domain.base.enums.ModelVehicleEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

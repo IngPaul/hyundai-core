@@ -4,8 +4,9 @@ import com.hyundai.challenge.adapters.common.mapper.ModelVehicleDomainMapper;
 import com.hyundai.challenge.adapters.out.dbs.sql.postgres.springdata.repositories.PurchaseRepository;
 import com.hyundai.challenge.aplication.port.out.purchase.VehiclePurchaseSavePort;
 import com.hyundai.challenge.aplication.port.out.report.GetReportVehiclePurchasePort;
-import com.hyundai.challenge.domain.ModelVehicleDomain;
-import com.hyundai.challenge.domain.enums.ModelVehicleEnum;
+import com.hyundai.challenge.domain.base.ModelVehicleDomain;
+import com.hyundai.challenge.domain.base.enums.ModelVehicleEnum;
+import com.hyundai.challenge.domain.report.ReportPurchaseVehicleDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -24,8 +25,14 @@ public class ModelVehicleAdapterPostgres implements GetReportVehiclePurchasePort
     }
 
     @Override
-    public Flux<ModelVehicleDomain> retrieveByDateAndModelAndCrypto(LocalDate date, ModelVehicleEnum model) {
+    public Mono<ReportPurchaseVehicleDomain> retrieveByDateAndModelAndCrypto(LocalDate date, ModelVehicleEnum model) {
         return purchaseRepository.findByDateAndModel(date, model.getName())
-                .map(ModelVehicleDomainMapper.INSTANCE::entityToDomain);
+                .map(ModelVehicleDomainMapper.INSTANCE::entityToDomain)
+                .collectList()
+                .map(list -> {
+                    ReportPurchaseVehicleDomain reportPurchaseVehicleDomain = new ReportPurchaseVehicleDomain();
+                    reportPurchaseVehicleDomain.setModelVehicleDomainList(list);
+                    return reportPurchaseVehicleDomain;
+                });
     }
 }

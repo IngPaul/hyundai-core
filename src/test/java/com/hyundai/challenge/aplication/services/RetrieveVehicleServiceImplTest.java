@@ -4,7 +4,7 @@ import Util.MockData;
 import com.hyundai.challenge.aplication.port.out.a_common.convertion.AddPriceCriptocurrencyPort;
 import com.hyundai.challenge.aplication.port.out.a_common.memory.SaveListModelVehiclesInMemoryPort;
 import com.hyundai.challenge.aplication.port.out.catalog.RetrieveModelVehiclesPort;
-import com.hyundai.challenge.domain.ModelVehicleDomain;
+import com.hyundai.challenge.domain.base.ModelVehicleDomain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

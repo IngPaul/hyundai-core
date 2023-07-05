@@ -3,7 +3,8 @@ package com.hyundai.challenge.aplication.services;
 import Util.MockData;
 import com.hyundai.challenge.aplication.port.out.a_common.convertion.AddPriceCriptocurrencyPort;
 import com.hyundai.challenge.aplication.port.out.report.GetReportVehiclePurchasePort;
-import com.hyundai.challenge.domain.ModelVehicleDomain;
+import com.hyundai.challenge.domain.base.ModelVehicleDomain;
+import com.hyundai.challenge.domain.report.ReportPurchaseVehicleDomain;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,10 +28,10 @@ class ReportServiceImplTest {
 
     @Test
     void retrieveByDateAndModelAndCryptoPriceNotExist() {
-        ModelVehicleDomain data = MockData.getModelVehicleDomain();
-        data.setPriceCryptocurrency(null);
+        ReportPurchaseVehicleDomain data = MockData.getReportPurchaseVehicleDomain();
+        data.getModelVehicleDomainList().get(0).setPriceCryptocurrency(null);
         Mockito.when(getReportVehiclePurchasePort.retrieveByDateAndModelAndCrypto(Mockito.any(), Mockito.any()))
-                        .thenReturn(Flux.just(data));
+                        .thenReturn(Mono.just(data));
 
 
 
@@ -42,9 +43,9 @@ class ReportServiceImplTest {
     }
     @Test
     void retrieveByDateAndModelAndCryptoPriceExist() {
-        ModelVehicleDomain data = MockData.getModelVehicleDomain();
+        ReportPurchaseVehicleDomain data = MockData.getReportPurchaseVehicleDomain();
         Mockito.when(getReportVehiclePurchasePort.retrieveByDateAndModelAndCrypto(Mockito.any(), Mockito.any()))
-                .thenReturn(Flux.just(data));
+                .thenReturn(Mono.just(data));
 
         StepVerifier.create(reportService.retrieveByDateAndModelAndCrypto(LocalDate.now(),"TUCSON","BTC"))
                 .expectNextCount(1)

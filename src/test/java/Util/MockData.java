@@ -4,7 +4,8 @@ import com.hyundai.challenge.adapters.common.dto.vehicle.VehicleModelDto;
 import com.hyundai.challenge.adapters.out.dbs.sql.postgres.springdata.entities.VehiclePurchase;
 import com.hyundai.challenge.adapters.common.dto.price.livecoin.DataPriceLiveDto;
 import com.hyundai.challenge.adapters.common.dto.price.livecoin.PriceLiveDto;
-import com.hyundai.challenge.domain.ModelVehicleDomain;
+import com.hyundai.challenge.domain.base.ModelVehicleDomain;
+import com.hyundai.challenge.domain.report.ReportPurchaseVehicleDomain;
 import com.hyundai.challenge.model.*;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.mock.web.server.MockServerWebExchange;
@@ -144,6 +145,11 @@ public class MockData {
         modelVehicleDomain.setPriceCryptocurrency(new BigDecimal("5"));
         modelVehicleDomain.setDate(LocalDate.now());
         return modelVehicleDomain;
+    }
+    public static ReportPurchaseVehicleDomain getReportPurchaseVehicleDomain() {
+        ReportPurchaseVehicleDomain reportPurchaseVehicleDomain= new ReportPurchaseVehicleDomain();
+        reportPurchaseVehicleDomain.setModelVehicleDomainList(Arrays.asList(getModelVehicleDomain()));
+        return reportPurchaseVehicleDomain;
     }
 
     public static VehicleModelDto getVehicleModelDto() {

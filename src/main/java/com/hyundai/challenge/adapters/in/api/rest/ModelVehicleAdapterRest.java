@@ -39,7 +39,7 @@ public class ModelVehicleAdapterRest implements VehicleModelsApi {
     public Mono<ResponseEntity<PostPurchaseVehicleModelResponse>> postPurchaseVehicleModel(Mono<PostPurchaseVehicleModelRequest> postPurchaseVehicleModelRequest, ServerWebExchange exchange) {
         return postPurchaseVehicleModelRequest
                 .map(PostPurchaseVehicleModelRequest::getData)
-                .map(PostPurchaseVehicleModelRequestDataMapper.INSTANCE::toModelVehicleDomain)
+                .map(PostPurchaseVehicleModelRequestDataMapper.INSTANCE::toModelVehicleDomain)//toPurchaseVehicel
                 .flatMap(modelVehicleDomain->vehiclePurchaseSaveUseCase.purchase(modelVehicleDomain, modelVehicleDomain.getConversionId()))
                 .map(PostPurchaseVehicleModelMapper.INSTANCE::mapToPostPurchaseModel)
                 .map(data -> new PostPurchaseVehicleModelResponse().data(data))

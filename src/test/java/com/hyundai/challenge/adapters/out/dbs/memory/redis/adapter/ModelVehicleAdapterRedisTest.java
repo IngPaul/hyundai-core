@@ -2,8 +2,8 @@ package com.hyundai.challenge.adapters.out.dbs.memory.redis.adapter;
 
 import Util.MockData;
 import com.hyundai.challenge.adapters.out.dbs.memory.redis.repository.CacheVehicleVersionRepository;
-import com.hyundai.challenge.domain.ModelVehicleDomain;
-import com.hyundai.challenge.domain.enums.ModelVehicleEnum;
+import com.hyundai.challenge.domain.base.ModelVehicleDomain;
+import com.hyundai.challenge.domain.base.enums.ModelVehicleEnum;
 import com.hyundai.challenge.model.VehicleVersion;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

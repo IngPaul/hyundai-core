@@ -2,7 +2,7 @@ package com.hyundai.challenge.adapters.out.dbs.sql.postgres.springdata.adapter;
 
 import Util.MockData;
 import com.hyundai.challenge.adapters.out.dbs.sql.postgres.springdata.repositories.PurchaseRepository;
-import com.hyundai.challenge.domain.enums.ModelVehicleEnum;
+import com.hyundai.challenge.domain.base.enums.ModelVehicleEnum;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

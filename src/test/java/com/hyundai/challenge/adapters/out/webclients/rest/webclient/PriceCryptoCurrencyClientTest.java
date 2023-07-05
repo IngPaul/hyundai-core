@@ -2,7 +2,7 @@ package com.hyundai.challenge.adapters.out.webclients.rest.webclient;
 
 import Util.MockData;
 import com.hyundai.challenge.adapters.common.dto.price.livecoin.PriceLiveDto;
-import com.hyundai.challenge.domain.enums.CryptoCurrencyEnum;
+import com.hyundai.challenge.domain.base.enums.CryptoCurrencyEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

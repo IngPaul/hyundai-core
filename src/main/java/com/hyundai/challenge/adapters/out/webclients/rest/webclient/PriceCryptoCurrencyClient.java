@@ -1,7 +1,7 @@
 package com.hyundai.challenge.adapters.out.webclients.rest.webclient;
 
 import com.hyundai.challenge.adapters.common.dto.price.coinlore.PriceLoreDto;
-import com.hyundai.challenge.domain.enums.CryptoCurrencyEnum;
+import com.hyundai.challenge.domain.base.enums.CryptoCurrencyEnum;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

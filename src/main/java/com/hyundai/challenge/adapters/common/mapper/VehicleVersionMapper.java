@@ -1,5 +1,5 @@
 package com.hyundai.challenge.adapters.common.mapper;
-import com.hyundai.challenge.domain.ModelVehicleDomain;
+import com.hyundai.challenge.domain.base.ModelVehicleDomain;
 import com.hyundai.challenge.model.VehicleVersion;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

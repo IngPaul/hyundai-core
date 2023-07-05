@@ -7,9 +7,10 @@ import com.hyundai.challenge.aplication.port.out.a_common.convertion.AddPriceCri
 import com.hyundai.challenge.aplication.port.out.catalog.RetrieveModelVehiclesPort;
 import com.hyundai.challenge.aplication.port.out.catalog.RetrieveVersionVehiclePort;
 
-import com.hyundai.challenge.domain.ModelVehicleDomain;
-import com.hyundai.challenge.domain.enums.CryptoCurrencyEnum;
-import com.hyundai.challenge.domain.enums.ModelVehicleEnum;
+import com.hyundai.challenge.domain.base.ModelVehicleDomain;
+import com.hyundai.challenge.domain.base.enums.CryptoCurrencyEnum;
+import com.hyundai.challenge.domain.base.enums.ModelVehicleEnum;
+import com.hyundai.challenge.domain.catalog.CatalogVehicleDomain;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -24,7 +25,8 @@ public class ModelVehicleAdapterDependencies implements RetrieveModelVehiclesPor
     private final PriceCryptoCurrencyClient priceCryptoCurrencyClient;
 
     @Override
-    public Flux<ModelVehicleDomain> retrieveByModelAndCrypto(ModelVehicleEnum model, CryptoCurrencyEnum cryptocurrency) {
+    public Flux<CatalogVehicleDomain> retrieveByModelAndCrypto(ModelVehicleEnum model, CryptoCurrencyEnum cryptocurrency) {
+        xxxxxxxx?? requiero hacer algo
         return retrieveVehiclesWithPrice(model,cryptocurrency);
     }
     @Override

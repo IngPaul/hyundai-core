@@ -1,6 +1,6 @@
 package com.hyundai.challenge.aplication.port.in.a_common.convertion;
 
-import com.hyundai.challenge.domain.ModelVehicleDomain;
+import com.hyundai.challenge.domain.base.ModelVehicleDomain;
 import reactor.core.publisher.Mono;
 
 @FunctionalInterface

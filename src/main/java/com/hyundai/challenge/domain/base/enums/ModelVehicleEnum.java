@@ -1,4 +1,4 @@
-package com.hyundai.challenge.domain.enums;
+package com.hyundai.challenge.domain.base.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
