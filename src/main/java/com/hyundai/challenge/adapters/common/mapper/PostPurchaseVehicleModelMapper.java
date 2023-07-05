@@ -8,9 +8,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface PostPurchaseMapper {
+public interface PostPurchaseVehicleModelMapper {
 
-    PostPurchaseMapper INSTANCE = Mappers.getMapper(PostPurchaseMapper.class);
+    PostPurchaseVehicleModelMapper INSTANCE = Mappers.getMapper(PostPurchaseVehicleModelMapper.class);
 
     @Mapping( target = "date", expression = "java(java.time.format.DateTimeFormatter.ISO_DATE.format(domain.getDate()))")
     @Mapping( target = "purchaseId", expression = "java(domain.getId().toString())")

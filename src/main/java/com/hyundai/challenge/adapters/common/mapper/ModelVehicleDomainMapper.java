@@ -27,10 +27,4 @@ public interface ModelVehicleDomainMapper {
     @Mapping(source = "vehicle.cryptocurrency", target = "cryptocurrency")
     ModelVehicleDomain vehicleVersionToDomain(VehicleVersion vehicle, String model);
 
-
-    @Mapping(source = "fullName", target = "fullName")
-    @Mapping(source = "model.priceUsd", target = "priceUsd")
-    @Mapping(source = "model.priceCryptocurrency", target = "priceCryptocurrency")
-    @Mapping(source = "model.cryptocurrency", target = "cryptocurrency")
-    ModelVehicleDomain toModelVehicleDomain (VehicleVersion model, String fullName);
 }

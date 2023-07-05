@@ -13,18 +13,7 @@ public interface PostPurchaseReportMapper {
     @Mapping(source = "date", target = "date")
     @Mapping(source = "model", target = "model")
     @Mapping(source = "cryptocurrency", target = "cryptocurrency")
-    @Mapping(source = "usdAmount", target = "priceUsd")
-    @Mapping(source = "cryptocurrencyAmount", target = "priceCryptocurrency")
-    ModelVehicleDomain toModelVehicleDomain(PostPurchaseReportResponseData response);
-
-    @Mapping(source = "date", target = "date")
-    @Mapping(source = "model", target = "model")
-    @Mapping(source = "cryptocurrency", target = "cryptocurrency")
     @Mapping(source = "priceUsd", target = "usdAmount")
     @Mapping(source = "priceCryptocurrency", target = "cryptocurrencyAmount")
     PostPurchaseReportResponseData toPostPurchaseReportResponseData(ModelVehicleDomain domain);
-
-
-
-
 }

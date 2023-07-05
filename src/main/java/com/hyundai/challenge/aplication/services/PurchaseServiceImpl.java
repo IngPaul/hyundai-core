@@ -30,14 +30,15 @@ public class PurchaseServiceImpl implements VehiclePurchaseSaveUseCase {
         return retrieveVersionVehicleInMemoryPort.retrieveByConversionIdAndVersion(conversionId, ModelVehicleEnum, modelVehicleDomain.getVersion())
                 .switchIfEmpty(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(ModelVehicleEnum, cryptoCurrencyEnum,modelVehicleDomain.getVersion()))
                 .switchIfEmpty(Mono.error(CoreError.ERROR_IN_RETRIEVE_VEHICLE_NOT_FOUND))
-                .map(modelVehicleDomainRetrieve->{
-                    modelVehicleDomain.setCryptocurrency(modelVehicleDomainRetrieve.getCryptocurrency());
-                    modelVehicleDomain.setPriceCryptocurrency(modelVehicleDomainRetrieve.getPriceCryptocurrency());
-                    modelVehicleDomain.setPriceUsd(modelVehicleDomainRetrieve.getPriceUsd());
-                    modelVehicleDomain.setDate(LocalDate.now());
-                    return modelVehicleDomain;
-                })
+                .map(modelVehicleDomainRetrieve->copyData(modelVehicleDomain, modelVehicleDomainRetrieve))
                 .flatMap(modelVehicle -> addPriceCriptocurrencyPort.add(cryptoCurrencyEnum,modelVehicle))
                 .flatMap(vehiclePurchaseSavePort::purchase);
+    }
+    private ModelVehicleDomain copyData(ModelVehicleDomain target, ModelVehicleDomain source){
+        target.setCryptocurrency(source.getCryptocurrency());
+        target.setPriceCryptocurrency(source.getPriceCryptocurrency());
+        target.setPriceUsd(source.getPriceUsd());
+        target.setDate(LocalDate.now());
+        return target;
     }
 }

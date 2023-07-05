@@ -10,8 +10,6 @@ import org.mapstruct.factory.Mappers;
 public interface VehicleVersionMapper {
     VehicleVersionMapper INSTANCE = Mappers.getMapper(VehicleVersionMapper.class);
 
-    @Mapping(source = "model", target = "fullName")
-    ModelVehicleDomain toDomain(VehicleVersion vehicleVersion);
     @Mapping(source = "model", target = "model")
     @Mapping(source = "domain.priceUsd", target = "priceUsd")
     @Mapping(source = "domain.priceCryptocurrency", target = "priceCryptocurrency")

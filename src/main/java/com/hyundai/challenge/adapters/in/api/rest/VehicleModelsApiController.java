@@ -1,11 +1,8 @@
 package com.hyundai.challenge.adapters.in.api.rest;
 
-import com.hyundai.challenge.adapters.common.mapper.VehicleVersionMapper;
+import com.hyundai.challenge.adapters.common.mapper.*;
 import com.hyundai.challenge.controllers.VehicleModelsApi;
 import com.hyundai.challenge.model.*;
-import com.hyundai.challenge.adapters.common.mapper.ModelVehicleDomainMapper;
-import com.hyundai.challenge.adapters.common.mapper.PostPurchaseMapper;
-import com.hyundai.challenge.adapters.common.mapper.PostPurchaseReportMapper;
 import com.hyundai.challenge.aplication.port.in.catalog.RetrieveModelVehiclesUseCase;
 import com.hyundai.challenge.aplication.port.in.purchase.VehiclePurchaseSaveUseCase;
 import com.hyundai.challenge.aplication.port.in.report.GetReportVehiclePurchaseUseCase;
@@ -32,12 +29,12 @@ public class VehicleModelsApiController implements VehicleModelsApi {
     @Override
     public Mono<ResponseEntity<PostPurchaseReportResponse>> postPurchaseReport(Mono<PostPurchaseReportRequest> postPurchaseReportRequest, ServerWebExchange exchange) {
         return postPurchaseReportRequest
-                .flatMap(request->getReportVehiclePurchaseUseCase
-                                        .retrieveByDateAndModelAndCrypto(request.getData().getDate(),
-                                                                         request.getData().getModel(),
-                                                                         request.getData().getCryptocurrency())
-                                        .map(d->PostPurchaseReportMapper.INSTANCE.toPostPurchaseReportResponseData(d))
-                                        .collectList())
+                .map(request->request.getData())
+                .flatMap(request-> getReportVehiclePurchaseUseCase.retrieveByDateAndModelAndCrypto(request.getDate(),
+                                                                                                    request.getModel(),
+                                                                                                    request.getCryptocurrency())
+                                .map(d->PostPurchaseReportMapper.INSTANCE.toPostPurchaseReportResponseData(d))
+                                .collectList())
                 .map(data->new PostPurchaseReportResponse().data(data))
                 .map(ResponseEntity::ok);
     }
@@ -45,16 +42,10 @@ public class VehicleModelsApiController implements VehicleModelsApi {
     @Override
     public Mono<ResponseEntity<PostPurchaseVehicleModelResponse>> postPurchaseVehicleModel(Mono<PostPurchaseVehicleModelRequest> postPurchaseVehicleModelRequest, ServerWebExchange exchange) {
         return postPurchaseVehicleModelRequest
-                .flatMap(request -> {
-                    ModelVehicleDomain modelVehicleDomain = new ModelVehicleDomain();
-                    modelVehicleDomain.setModel(request.getData().getModel());
-                    modelVehicleDomain.setCryptocurrency(request.getData().getCryptocurrency());
-                    modelVehicleDomain.setVersion(request.getData().getVersion());
-                    modelVehicleDomain.setFullName(request.getData().getFullName());
-                    modelVehicleDomain.setConversionId(request.getData().getConvertionId());
-                    return vehiclePurchaseSaveUseCase.purchase(modelVehicleDomain, request.getData().getConvertionId());
-                })
-                .map(PostPurchaseMapper.INSTANCE::mapToPostPurchaseModel)
+                .map(request->request.getData())
+                .map(PostPurchaseVehicleModelRequestDataMapper.INSTANCE::toModelVehicleDomain)
+                .flatMap(modelVehicleDomain->vehiclePurchaseSaveUseCase.purchase(modelVehicleDomain, modelVehicleDomain.getConversionId()))
+                .map(PostPurchaseVehicleModelMapper.INSTANCE::mapToPostPurchaseModel)
                 .map(data -> new PostPurchaseVehicleModelResponse().data(data))
                 .map(ResponseEntity::ok);
     }
@@ -66,24 +57,25 @@ public class VehicleModelsApiController implements VehicleModelsApi {
                         retrieveModelVehiclesUseCase
                                 .retrieveByModelAndCrypto(request.getData().getModel(), request.getData().getCryptoCurrency())
                                 .collectList()
-                                .map(list -> new Tuple4(list, list.get(0).getMsg(), list.get(0).getId(), request.getData().getModel(),request.getData().getCryptoCurrency()))
-                )
-                .map(data -> {
-                    List<VehicleVersion> listData = data.list.stream()
-                            .map(domain -> VehicleVersionMapper.INSTANCE.toVehicleVersion(domain, data.getModel()))
-                            .map(vehicleVersionInBuild->{
-                                vehicleVersionInBuild.setCryptocurrency(data.cryptoCurrency);
-                                return vehicleVersionInBuild;
-                            })
-                            .collect(Collectors.toList());
-                    return new DataResponse()
-                            .versions(listData)
+                                .map(list -> new Tuple4(list, list.get(0).getMsg(), list.get(0).getId(), request.getData().getModel(),request.getData().getCryptoCurrency())))
+                .map(data -> new DataResponse()
+                            .versions(completeDataInList(data))
                             .conversionTimelife(data.list.get(0).getMsg())
-                            .convertionId(data.list.get(0).getId().toString());
-                })
+                            .convertionId(data.list.get(0).getId().toString()))
                 .map(dataResponse -> new PostVehicleModelRetrieveResponse().data(dataResponse))
                 .map(ResponseEntity::ok);
     }
+
+    private List<VehicleVersion> completeDataInList(Tuple4 data) {
+        return data.list.stream()
+                .map(domain -> VehicleVersionMapper.INSTANCE.toVehicleVersion(domain, data.getModel()))
+                .map(vehicleVersionInBuild->{
+                    vehicleVersionInBuild.setCryptocurrency(data.cryptoCurrency);
+                    return vehicleVersionInBuild;
+                })
+                .collect(Collectors.toList());
+    }
+
     @Data
     @AllArgsConstructor
     private final class Tuple4{
