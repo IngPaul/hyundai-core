@@ -1,4 +1,4 @@
-package com.hyundai.challenge.adapters.out.webclients.restClient.webclient;
+package com.hyundai.challenge.adapters.out.webclients.rest.webclient;
 
 import Util.MockData;
 import com.hyundai.challenge.adapters.common.dto.price.livecoin.PriceLiveDto;
@@ -15,7 +15,6 @@ import reactor.test.StepVerifier;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class PriceCryptoCurrencyClientTest {
     @Mock private LiveCoinWatchClient liveCoinWatchClient;

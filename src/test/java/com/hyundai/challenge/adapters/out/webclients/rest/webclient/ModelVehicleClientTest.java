@@ -1,6 +1,5 @@
-package com.hyundai.challenge.adapters.out.webclients.restClient.webclient;
+package com.hyundai.challenge.adapters.out.webclients.rest.webclient;
 
-import com.hyundai.challenge.adapters.out.webclients.restClient.webclient.ModelVehicleClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;

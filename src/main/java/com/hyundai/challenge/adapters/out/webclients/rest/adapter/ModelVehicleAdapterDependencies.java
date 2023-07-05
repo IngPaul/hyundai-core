@@ -1,8 +1,8 @@
-package com.hyundai.challenge.adapters.out.webclients.restClient.adapter;
+package com.hyundai.challenge.adapters.out.webclients.rest.adapter;
 
 import com.hyundai.challenge.adapters.common.dto.vehicle.VehicleModelDto;
-import com.hyundai.challenge.adapters.out.webclients.restClient.webclient.ModelVehicleClient;
-import com.hyundai.challenge.adapters.out.webclients.restClient.webclient.PriceCryptoCurrencyClient;
+import com.hyundai.challenge.adapters.out.webclients.rest.webclient.ModelVehicleClient;
+import com.hyundai.challenge.adapters.out.webclients.rest.webclient.PriceCryptoCurrencyClient;
 import com.hyundai.challenge.aplication.port.out.a_common.convertion.AddPriceCriptocurrencyPort;
 import com.hyundai.challenge.aplication.port.out.catalog.RetrieveModelVehiclesPort;
 import com.hyundai.challenge.aplication.port.out.catalog.RetrieveVersionVehiclePort;

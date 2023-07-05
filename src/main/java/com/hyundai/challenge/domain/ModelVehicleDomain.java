@@ -1,6 +1,5 @@
 package com.hyundai.challenge.domain;
 
-import com.hyundai.challenge.adapters.out.dbs.sql.postgres.springdata.entities.base.GenericEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
@@ -8,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -25,8 +23,6 @@ public class ModelVehicleDomain extends GenericDomain{
     private BigDecimal priceCryptocurrency;
     private LocalDate date;
     public boolean validateDomainDataVehicle(){
-        if(this.priceUsd!=null)
-            return true;
-        return false;
+        return (this.priceUsd!=null);
     }
 }

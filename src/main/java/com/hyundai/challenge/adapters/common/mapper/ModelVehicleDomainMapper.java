@@ -8,9 +8,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import java.util.UUID;
-
-
 @Mapper(componentModel = "spring")
 public interface ModelVehicleDomainMapper {
     ModelVehicleDomainMapper INSTANCE =Mappers.getMapper(ModelVehicleDomainMapper.class);

@@ -14,7 +14,7 @@ import java.time.Duration;
 
 @SpringBootTest
 @SpringJUnitConfig
-public class ReactiveRedisTemplateTest {
+ class ReactiveRedisTemplateTest {
 
     @Autowired
     private ReactiveRedisTemplate<String, String> reactiveRedisTemplate;
@@ -23,17 +23,17 @@ public class ReactiveRedisTemplateTest {
     private static final String VALUE = "test:value";
 
     @BeforeEach
-    public void setUp() {
+     void setUp() {
         reactiveRedisTemplate.opsForValue().set(KEY, VALUE).block();
     }
 
     @AfterEach
-    public void tearDown() {
+     void tearDown() {
         reactiveRedisTemplate.delete(KEY).block();
     }
 
     @Test
-    public void testGetValueFromRedis() {
+     void testGetValueFromRedis() {
         Mono<String> result = reactiveRedisTemplate.opsForValue().get(KEY);
 
         StepVerifier.create(result)
@@ -42,7 +42,7 @@ public class ReactiveRedisTemplateTest {
     }
 
     @Test
-    public void testSetValueInRedis() {
+     void testSetValueInRedis() {
         String newValue = "new:value";
         Mono<Boolean> result = reactiveRedisTemplate.opsForValue().set(KEY, newValue);
 
@@ -58,7 +58,7 @@ public class ReactiveRedisTemplateTest {
     }
 
     @Test
-    public void testExpireKeyInRedis() {
+     void testExpireKeyInRedis() {
         Duration expiration = Duration.ofSeconds(5);
 
         Mono<Boolean> result = reactiveRedisTemplate.expire(KEY, expiration);

@@ -1,5 +1,4 @@
-package com.hyundai.challenge.adapters.out.webclients.restClient.webclient;
-import com.hyundai.challenge.adapters.out.webclients.restClient.webclient.CoinLoreClient;
+package com.hyundai.challenge.adapters.out.webclients.rest.webclient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -9,7 +8,7 @@ import reactor.test.StepVerifier;
 
 @SpringBootTest
 @AutoConfigureWebTestClient
-public class CoinLoreClientTest {
+class CoinLoreClientTest {
 
     @Autowired
     private WebTestClient webTestClient;
@@ -18,7 +17,7 @@ public class CoinLoreClientTest {
     private CoinLoreClient coinLoreClient;
 
     @Test
-    public void testGetPrice() {
+    void testGetPrice() {
         StepVerifier.create(coinLoreClient.getPrice(80L))
                 .expectNextCount(1)
                 .verifyComplete();

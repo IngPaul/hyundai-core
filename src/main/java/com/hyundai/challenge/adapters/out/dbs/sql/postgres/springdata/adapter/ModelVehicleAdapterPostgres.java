@@ -6,7 +6,6 @@ import com.hyundai.challenge.aplication.port.out.purchase.VehiclePurchaseSavePor
 import com.hyundai.challenge.aplication.port.out.report.GetReportVehiclePurchasePort;
 import com.hyundai.challenge.domain.ModelVehicleDomain;
 import com.hyundai.challenge.domain.enums.ModelVehicleEnum;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;

@@ -41,6 +41,6 @@ public class RetrieveVehicleServiceImpl implements RetrieveModelVehiclesUseCase 
             vehicle.setId(uuid);
             vehicle.setMsg("20 segundos");
             return vehicle;
-        }).collect(Collectors.toList());
+        }).collect(Collectors.toUnmodifiableList());
     }
 }

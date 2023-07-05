@@ -1,4 +1,4 @@
-package com.hyundai.challenge.adapters.out.webclients.restClient.webclient;
+package com.hyundai.challenge.adapters.out.webclients.rest.webclient;
 import com.hyundai.challenge.adapters.common.dto.price.livecoin.PriceLiveDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,12 +1,11 @@
-package com.hyundai.challenge.adapters.out.webclients.restClient.adapter;
+package com.hyundai.challenge.adapters.out.webclients.rest.adapter;
 
 import Util.MockData;
 import com.hyundai.challenge.adapters.common.dto.vehicle.VehicleModelDto;
-import com.hyundai.challenge.adapters.out.webclients.restClient.webclient.ModelVehicleClient;
-import com.hyundai.challenge.adapters.out.webclients.restClient.webclient.PriceCryptoCurrencyClient;
+import com.hyundai.challenge.adapters.out.webclients.rest.webclient.ModelVehicleClient;
+import com.hyundai.challenge.adapters.out.webclients.rest.webclient.PriceCryptoCurrencyClient;
 import com.hyundai.challenge.domain.enums.CryptoCurrencyEnum;
 import com.hyundai.challenge.domain.enums.ModelVehicleEnum;
-import com.hyundai.challenge.model.VehicleVersion;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,7 +18,6 @@ import reactor.test.StepVerifier;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class ModelVehicleAdapterDependenciesTest {
     @Mock private ModelVehicleClient modelVehicleClient;

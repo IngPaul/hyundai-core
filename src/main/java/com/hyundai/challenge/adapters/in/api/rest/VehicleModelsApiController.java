@@ -33,7 +33,7 @@ public class VehicleModelsApiController implements VehicleModelsApi {
                 .flatMap(request-> getReportVehiclePurchaseUseCase.retrieveByDateAndModelAndCrypto(request.getDate(),
                                                                                                     request.getModel(),
                                                                                                     request.getCryptocurrency())
-                                .map(d->PostPurchaseReportMapper.INSTANCE.toPostPurchaseReportResponseData(d))
+                                .map(PostPurchaseReportMapper.INSTANCE::toPostPurchaseReportResponseData)
                                 .collectList())
                 .map(data->new PostPurchaseReportResponse().data(data))
                 .map(ResponseEntity::ok);

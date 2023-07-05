@@ -13,7 +13,7 @@ import static Util.MockData.*;
 import static org.hamcrest.core.StringRegularExpression.matchesRegex;
 @SpringBootTest
 @AutoConfigureWebTestClient
-public class VehicleModelsApiControllerTest {
+ class VehicleModelsApiControllerTest {
 
     @Autowired
     private WebTestClient webTestClient;
@@ -52,20 +52,8 @@ public class VehicleModelsApiControllerTest {
                 .expectStatus().isOk();
     }
     @Test
-    public void testAll() {
+     void testAll() {
         testPurchase(testRetrieve());
         testReport();
-    }
-
-    @Test
-    void postPurchaseReport() {
-    }
-
-    @Test
-    void postPurchaseVehicleModel() {
-    }
-
-    @Test
-    void postVehicleRetrieveModel() {
     }
 }

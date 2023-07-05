@@ -25,10 +25,10 @@ public class PurchaseServiceImpl implements VehiclePurchaseSaveUseCase {
     private final AddPriceCriptocurrencyPort addPriceCriptocurrencyPort;
 
     public Mono<ModelVehicleDomain> purchase(ModelVehicleDomain modelVehicleDomain, String conversionId) {
-        ModelVehicleEnum ModelVehicleEnum= com.hyundai.challenge.domain.enums.ModelVehicleEnum.fromName(modelVehicleDomain.getModel());
+        ModelVehicleEnum modelVehicleEnum= com.hyundai.challenge.domain.enums.ModelVehicleEnum.fromName(modelVehicleDomain.getModel());
         CryptoCurrencyEnum cryptoCurrencyEnum= CryptoCurrencyEnum.fromName(modelVehicleDomain.getCryptocurrency());
-        return retrieveVersionVehicleInMemoryPort.retrieveByConversionIdAndVersion(conversionId, ModelVehicleEnum, modelVehicleDomain.getVersion())
-                .switchIfEmpty(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(ModelVehicleEnum, cryptoCurrencyEnum,modelVehicleDomain.getVersion()))
+        return retrieveVersionVehicleInMemoryPort.retrieveByConversionIdAndVersion(conversionId, modelVehicleEnum, modelVehicleDomain.getVersion())
+                .switchIfEmpty(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(modelVehicleEnum, cryptoCurrencyEnum,modelVehicleDomain.getVersion()))
                 .switchIfEmpty(Mono.error(CoreError.ERROR_IN_RETRIEVE_VEHICLE_NOT_FOUND))
                 .map(modelVehicleDomainRetrieve->copyData(modelVehicleDomain, modelVehicleDomainRetrieve))
                 .flatMap(modelVehicle -> addPriceCriptocurrencyPort.add(cryptoCurrencyEnum,modelVehicle))

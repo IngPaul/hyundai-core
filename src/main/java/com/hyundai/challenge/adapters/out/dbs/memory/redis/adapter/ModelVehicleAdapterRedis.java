@@ -32,7 +32,7 @@ public class ModelVehicleAdapterRedis implements RetrieveVersionVehicleInMemoryP
     @Override
     public Mono<List<ModelVehicleDomain>> save(List<ModelVehicleDomain> list, String conversionId, Duration expiration) {
         List<VehicleVersion> listToSave = list.stream().map(domain -> VehicleVersionMapper.INSTANCE.toVehicleVersion(domain, domain.getModel()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
         return vehicleVersionRepository.save(listToSave, conversionId, expiration)
                 .thenReturn(list);
     }
