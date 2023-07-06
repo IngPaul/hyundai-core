@@ -46,6 +46,7 @@ public class ModelVehicleAdapterRest implements VehicleModelsApi {
                     PurchaseVehicleDomain modelVehicleDomain = PostPurchaseVehicleModelMapper.INSTANCE.toPurchaseVehicleDomain(request);
                     return vehiclePurchaseSaveUseCase.purchase(modelVehicleDomain, request.getConvertionId(), request.getVersion());
                 })
+                .map(r->r)
                 .map(PostPurchaseVehicleModelMapper.INSTANCE::toPostPurchaseVehicleModelResponse)
                 .map(ResponseEntity::ok);
     }

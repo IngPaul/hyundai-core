@@ -12,6 +12,7 @@ import com.hyundai.challenge.domain.base.enums.CryptoCurrencyEnum;
 import com.hyundai.challenge.domain.base.enums.ModelVehicleEnum;
 import com.hyundai.challenge.domain.catalog.CatalogVehicleDomain;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -22,6 +23,7 @@ import static java.math.RoundingMode.DOWN;
 
 @AllArgsConstructor
 @Component
+@Slf4j
 public class ModelVehicleAdapterDependencies implements RetrieveModelVehiclesPort, RetrieveVersionVehiclePort, AddPriceCriptocurrencyPort {
     private final ModelVehicleClient modelVehicleClient;
     private final PriceCryptoCurrencyClient priceCryptoCurrencyClient;
@@ -68,6 +70,7 @@ public class ModelVehicleAdapterDependencies implements RetrieveModelVehiclesPor
 
     @Override
     public Mono<ModelVehicleDomain> add(CryptoCurrencyEnum cryptocurrency, ModelVehicleDomain modelVehicleDomain) {
-        return addPriceInModel(modelVehicleDomain, cryptocurrency);
+            log.info("** recuperando precio..");
+            return addPriceInModel(modelVehicleDomain, cryptocurrency);
     }
 }

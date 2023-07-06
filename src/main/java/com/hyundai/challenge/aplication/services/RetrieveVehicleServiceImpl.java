@@ -33,11 +33,10 @@ public class RetrieveVehicleServiceImpl implements RetrieveModelVehiclesUseCase 
                 .flatMap(vehicle -> addPriceCriptocurrencyPort.add(cryptoCurrencyEnum, vehicle))
                 .collectList()
                 .flatMap(list -> saveListModelVehiclesInMemoryPort.save(list, catalogVehicleDomain.getConvertionId(), Duration.ofSeconds(20)))
-                .map(list->buildCatalog(list));
+                .map(list->buildCatalog(catalogVehicleDomain,list));
     }
 
-    private CatalogVehicleDomain buildCatalog(List<ModelVehicleDomain> list) {
-        CatalogVehicleDomain catalogVehicleDomain= new CatalogVehicleDomain();
+    private CatalogVehicleDomain buildCatalog(CatalogVehicleDomain catalogVehicleDomain, List<ModelVehicleDomain> list) {
         catalogVehicleDomain.setVersions(list);
         return catalogVehicleDomain;
     }

@@ -29,19 +29,17 @@ public class PurchaseServiceImpl implements VehiclePurchaseSaveUseCase {
         ModelVehicleEnum modelVehicleEnum= ModelVehicleEnum.fromName(purchaseVehicleDomain.getModelVehicleDomain().getModel());
         CryptoCurrencyEnum cryptoCurrencyEnum= CryptoCurrencyEnum.fromName(purchaseVehicleDomain.getModelVehicleDomain().getCryptocurrency());
         return  retrieveVersionVehicleInMemoryPort.retrieveByConversionIdAndVersion(conversionId, modelVehicleEnum, version)
+                .flatMap(modelVehicleDomain -> addPriceCriptocurrencyPort.add(cryptoCurrencyEnum, modelVehicleDomain))
                 .switchIfEmpty(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(modelVehicleEnum, cryptoCurrencyEnum, version))
                 .switchIfEmpty(Mono.error(CoreError.ERROR_IN_RETRIEVE_VEHICLE_NOT_FOUND))
-                .map(purchaseVehicleDomainRetrieve -> copyData(purchaseVehicleDomain, purchaseVehicleDomainRetrieve))
-                .flatMap(modelVehicle -> addPriceCriptocurrencyPort.add(cryptoCurrencyEnum, modelVehicle.getModelVehicleDomain())
-                        .flatMap(vehiclePrice->{
-                            modelVehicle.setModelVehicleDomain(vehiclePrice);
-                            return vehiclePurchaseSavePort.purchase(modelVehicle);
-                        }));
+                .map(modelVehicleDomain -> copyData(purchaseVehicleDomain, modelVehicleDomain))
+                .flatMap(vehiclePurchaseSavePort::purchase);
     }
     private PurchaseVehicleDomain copyData(PurchaseVehicleDomain target, ModelVehicleDomain source){
         target.getModelVehicleDomain().setCryptocurrency(source.getCryptocurrency());
         target.getModelVehicleDomain().setPriceCryptocurrency(source.getPriceCryptocurrency());
         target.getModelVehicleDomain().setPriceUsd(source.getPriceUsd());
+        target.setModelVehicleDomain(source);
         target.setDate(LocalDate.now());
         return target;
     }

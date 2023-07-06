@@ -34,8 +34,11 @@ public class ModelVehicleAdapterPostgres implements GetReportVehiclePurchasePort
     }
 
     @Override
-    public Mono<PurchaseVehicleDomain> purchase(PurchaseVehicleDomain request) {
-        return purchaseRepository.save(PurchaseVehicleMapper.INSTANCE.toVehiclePurchase(request))
-                .map(PurchaseVehicleMapper.INSTANCE::toPurchaseVehicleDomain);
+    public Mono<PurchaseVehicleDomain> purchase(PurchaseVehicleDomain purchase) {
+        return purchaseRepository.save(PurchaseVehicleMapper.INSTANCE.toVehiclePurchase(purchase))
+                .map(p->{
+                   purchase.getModelVehicleDomain().setId(p.getId());
+                   return purchase;
+                });
     }
 }
