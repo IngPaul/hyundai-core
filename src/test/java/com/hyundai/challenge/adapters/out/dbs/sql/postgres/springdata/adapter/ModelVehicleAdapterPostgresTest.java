@@ -24,7 +24,7 @@ class ModelVehicleAdapterPostgresTest {
         Mockito.when(purchaseRepository.save(Mockito.any()))
                 .thenReturn(Mono.just(MockData.getVehiclePurchase()));
 
-        StepVerifier.create(modelVehicleAdapterPostgres.purchase(Mockito.any()))
+        StepVerifier.create(modelVehicleAdapterPostgres.purchase(MockData.getPurchaseVehicleDomain()))
                 .expectNextCount(1)
                 .verifyComplete();
 

@@ -122,7 +122,7 @@ public class MockData {
         vehiclePurchase.setFullName("John Doe");
         vehiclePurchase.setVersion("1.0");
         vehiclePurchase.setModel("TUCSON");
-        vehiclePurchase.setCryptocurrency("Bitcoin");
+        vehiclePurchase.setCryptocurrency("BTC");
         vehiclePurchase.setPriceUsd(new BigDecimal("25000.00"));
         vehiclePurchase.setPriceCryptocurrency(new BigDecimal("5.50"));
         vehiclePurchase.setDate(LocalDate.now());
