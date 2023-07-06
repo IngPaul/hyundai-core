@@ -1,7 +1,7 @@
 package com.hyundai.challenge.adapters.in.api.rest;
 
 import com.hyundai.challenge.adapters.common.mapper.*;
-import com.hyundai.challenge.adapters.common.mapper.news.PostPurchaseVehicleModelMapper;
+import com.hyundai.challenge.adapters.common.mapper.PostPurchaseVehicleModelMapper;
 import com.hyundai.challenge.controllers.VehicleModelsApi;
 import com.hyundai.challenge.domain.catalog.CatalogVehicleDomain;
 import com.hyundai.challenge.domain.purchase.PurchaseVehicleDomain;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -46,8 +47,11 @@ public class ModelVehicleAdapterRest implements VehicleModelsApi {
                     PurchaseVehicleDomain modelVehicleDomain = PostPurchaseVehicleModelMapper.INSTANCE.toPurchaseVehicleDomain(request);
                     return vehiclePurchaseSaveUseCase.purchase(modelVehicleDomain, request.getConvertionId(), request.getVersion());
                 })
-                .map(r->r)
-                .map(PostPurchaseVehicleModelMapper.INSTANCE::toPostPurchaseVehicleModelResponse)
+                .map(dataSave->{
+                    PostPurchaseVehicleModelResponse response = PostPurchaseVehicleModelMapper.INSTANCE.toPostPurchaseVehicleModelResponse(dataSave);
+                    response.getData().setDate(dataSave.getDate().format(DateTimeFormatter.ISO_LOCAL_DATE));
+                    return response;
+                })
                 .map(ResponseEntity::ok);
     }
 

@@ -1,4 +1,4 @@
-package com.hyundai.challenge.adapters.common.mapper.news;
+package com.hyundai.challenge.adapters.common.mapper;
 
 
 import com.hyundai.challenge.domain.purchase.PurchaseVehicleDomain;
@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface PostPurchaseVehicleModelMapper {
@@ -28,13 +29,16 @@ public interface PostPurchaseVehicleModelMapper {
     @Mapping(source = "fullName", target = "data.fullName")
     @Mapping(source = "modelVehicleDomain.version", target = "data.version")
     @Mapping(source = "modelVehicleDomain.model", target = "data.model")
+    @Mapping(source = "modelVehicleDomain.priceUsd", target = "data.priceUsd")
     @Mapping(source = "modelVehicleDomain.cryptocurrency", target = "data.cryptocurrency")
-    @Mapping(target = "data.priceUsd", ignore = true)
-    @Mapping(target = "data.priceCryptocurrency", ignore = true)
-    @Mapping(target = "data.date", ignore = true)
+    @Mapping(source = "modelVehicleDomain.priceCryptocurrency", target = "data.priceCryptocurrency")
+    @Mapping(target = "data.purchaseId", expression = "java(getToStringOfUuid(modelVehicleDomain.getId()))")
     PostPurchaseVehicleModelResponse toPostPurchaseVehicleModelResponse(PurchaseVehicleDomain domain);
-
-    // Mapeo de la lista de PurchaseVehicleDomain a la lista de PostPurchaseVehicleModelResponse
+    default String getToStringOfUuid(UUID uuid){
+        if (uuid!=null)
+            return uuid.toString();
+        return null;
+    }
     List<PostPurchaseVehicleModelResponse> toPostPurchaseVehicleModelResponseList(List<PurchaseVehicleDomain> domainList);
 
 

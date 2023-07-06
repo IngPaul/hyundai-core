@@ -14,10 +14,6 @@ public interface ModelVehicleDomainMapper {
 
     ModelVehicleDomain entityToDomain(VehiclePurchase vehiclePurchase);
 
-
-    VehiclePurchase domainToEntity(ModelVehicleDomain modelVehicleDomain);
-
-
     @Mapping(source = "vehicle.version", target = "version")
     @Mapping(source = "vehicle.priceUsd", target = "priceUsd")
     @Mapping(source = "vehicle.priceCryptocurrency", target = "priceCryptocurrency")

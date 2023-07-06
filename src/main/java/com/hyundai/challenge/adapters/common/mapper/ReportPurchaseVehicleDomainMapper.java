@@ -1,4 +1,4 @@
-package com.hyundai.challenge.adapters.common.mapper.news;
+package com.hyundai.challenge.adapters.common.mapper;
 
 
 import com.hyundai.challenge.adapters.out.dbs.sql.postgres.springdata.entities.VehiclePurchase;

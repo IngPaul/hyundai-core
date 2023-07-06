@@ -40,9 +40,6 @@ class PurchaseServiceImplTest {
         Mockito.when(retrieveVersionVehicleInMemoryPort.retrieveByConversionIdAndVersion(Mockito.anyString(), Mockito.any(), Mockito.anyString()))
                 .thenReturn(justRetrieveInMemory);
 
-        Mockito.when(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(Mockito.any(), Mockito.any(), Mockito.anyString()))
-                .thenReturn(justRetrieveInBase);
-
         Mockito.when(addPriceCriptocurrencyPort.add(Mockito.any(),Mockito.any()))
                 .thenReturn(Mono.just(MockData.getModelVehicleDomain()));
 
@@ -56,11 +53,12 @@ class PurchaseServiceImplTest {
                 .expectNextCount(1)
                 .verifyComplete();
         Mockito.verify(retrieveVersionVehicleInMemoryPort, Mockito.times(1)).retrieveByConversionIdAndVersion(Mockito.anyString(), Mockito.any(), Mockito.anyString());
-        Mockito.verify(addPriceCriptocurrencyPort, Mockito.times(1)).add(Mockito.any(), Mockito.any());
         Mockito.verify(vehiclePurchaseSavePort, Mockito.times(1)).purchase(Mockito.any());
     }
     @Test
     void purchaseWithDataNotInMemory() {
+        Mockito.when(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(Mockito.any(), Mockito.any(), Mockito.anyString()))
+                .thenReturn(Mono.just(MockData.getModelVehicleDomain()));
         purchase(Mono.empty(), Mono.just(MockData.getModelVehicleDomain()));
         StepVerifier.create(purchaseService.purchase( MockData.getPurchaseVehicleDomain(), "XXXXX","1.5"))
                 .expectNextCount(1)

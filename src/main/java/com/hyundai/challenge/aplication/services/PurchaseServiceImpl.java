@@ -29,8 +29,8 @@ public class PurchaseServiceImpl implements VehiclePurchaseSaveUseCase {
         ModelVehicleEnum modelVehicleEnum= ModelVehicleEnum.fromName(purchaseVehicleDomain.getModelVehicleDomain().getModel());
         CryptoCurrencyEnum cryptoCurrencyEnum= CryptoCurrencyEnum.fromName(purchaseVehicleDomain.getModelVehicleDomain().getCryptocurrency());
         return  retrieveVersionVehicleInMemoryPort.retrieveByConversionIdAndVersion(conversionId, modelVehicleEnum, version)
-                .flatMap(modelVehicleDomain -> addPriceCriptocurrencyPort.add(cryptoCurrencyEnum, modelVehicleDomain))
-                .switchIfEmpty(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(modelVehicleEnum, cryptoCurrencyEnum, version))
+                .switchIfEmpty(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(modelVehicleEnum, cryptoCurrencyEnum, version)
+                        .flatMap(modelVehicleDomain -> addPriceCriptocurrencyPort.add(cryptoCurrencyEnum, modelVehicleDomain)))
                 .switchIfEmpty(Mono.error(CoreError.ERROR_IN_RETRIEVE_VEHICLE_NOT_FOUND))
                 .map(modelVehicleDomain -> copyData(purchaseVehicleDomain, modelVehicleDomain))
                 .flatMap(vehiclePurchaseSavePort::purchase);
