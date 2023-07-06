@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Generated
-public abstract class ModelVehicleDomain extends GenericDomain {
+public class ModelVehicleDomain extends GenericDomain {
     private String version;
     private String model;
     private String cryptocurrency;

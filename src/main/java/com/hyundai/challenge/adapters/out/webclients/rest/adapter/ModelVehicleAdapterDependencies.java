@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import java.math.BigDecimal;
+import java.util.Arrays;
+
 import static java.math.RoundingMode.DOWN;
 
 @AllArgsConstructor
@@ -26,8 +28,12 @@ public class ModelVehicleAdapterDependencies implements RetrieveModelVehiclesPor
 
     @Override
     public Flux<CatalogVehicleDomain> retrieveByModelAndCrypto(ModelVehicleEnum model, CryptoCurrencyEnum cryptocurrency) {
-        xxxxxxxx?? requiero hacer algo
-        return retrieveVehiclesWithPrice(model,cryptocurrency);
+        return retrieveVehiclesWithPrice(model,cryptocurrency)
+                .map(modelVehicleDomain -> {
+                    CatalogVehicleDomain catalogVehicleDomain= new CatalogVehicleDomain();
+                    catalogVehicleDomain.setVersions(Arrays.asList(modelVehicleDomain));
+                    return catalogVehicleDomain;
+                });
     }
     @Override
     public Mono<ModelVehicleDomain> retrieveByModelAndCryptoAndVersion(ModelVehicleEnum model, CryptoCurrencyEnum cryptocurrency, String version) {

@@ -10,10 +10,5 @@ import org.mapstruct.factory.Mappers;
 public interface PostPurchaseReportMapper {
     PostPurchaseReportMapper INSTANCE = Mappers.getMapper(PostPurchaseReportMapper.class);
 
-    @Mapping(source = "date", target = "date")
-    @Mapping(source = "model", target = "model")
-    @Mapping(source = "cryptocurrency", target = "cryptocurrency")
-    @Mapping(source = "priceUsd", target = "usdAmount")
-    @Mapping(source = "priceCryptocurrency", target = "cryptocurrencyAmount")
     PostPurchaseReportResponseData toPostPurchaseReportResponseData(ModelVehicleDomain domain);
 }

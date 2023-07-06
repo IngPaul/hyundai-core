@@ -25,13 +25,13 @@ public class PurchaseServiceImpl implements VehiclePurchaseSaveUseCase {
     private final RetrieveVersionVehiclePort retrieveVersionVehiclePort;
     private final AddPriceCriptocurrencyPort addPriceCriptocurrencyPort;
 
-    public Mono<PurchaseVehicleDomain> purchase(PurchaseVehicleDomain modelVehicleDomain, String conversionId) {
-        ModelVehicleEnum modelVehicleEnum= ModelVehicleEnum.fromName(modelVehicleDomain.getModelVehicleDomain().getModel());
-        CryptoCurrencyEnum cryptoCurrencyEnum= CryptoCurrencyEnum.fromName(modelVehicleDomain.getModelVehicleDomain().getCryptocurrency());
-        return  retrieveVersionVehicleInMemoryPort.retrieveByConversionIdAndVersion(conversionId, modelVehicleEnum, modelVehicleDomain.getVersion())
-                .switchIfEmpty(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(modelVehicleEnum, cryptoCurrencyEnum, modelVehicleDomain.getVersion()))
+    public Mono<PurchaseVehicleDomain> purchase(PurchaseVehicleDomain purchaseVehicleDomain, String conversionId, String version) {
+        ModelVehicleEnum modelVehicleEnum= ModelVehicleEnum.fromName(purchaseVehicleDomain.getModelVehicleDomain().getModel());
+        CryptoCurrencyEnum cryptoCurrencyEnum= CryptoCurrencyEnum.fromName(purchaseVehicleDomain.getModelVehicleDomain().getCryptocurrency());
+        return  retrieveVersionVehicleInMemoryPort.retrieveByConversionIdAndVersion(conversionId, modelVehicleEnum, version)
+                .switchIfEmpty(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(modelVehicleEnum, cryptoCurrencyEnum, version))
                 .switchIfEmpty(Mono.error(CoreError.ERROR_IN_RETRIEVE_VEHICLE_NOT_FOUND))
-                .map(modelVehicleDomainRetrieve -> copyData(modelVehicleDomain, modelVehicleDomainRetrieve))
+                .map(purchaseVehicleDomainRetrieve -> copyData(purchaseVehicleDomain, purchaseVehicleDomainRetrieve))
                 .flatMap(modelVehicle -> addPriceCriptocurrencyPort.add(cryptoCurrencyEnum, modelVehicle.getModelVehicleDomain())
                         .flatMap(vehiclePrice->{
                             modelVehicle.setModelVehicleDomain(vehiclePrice);

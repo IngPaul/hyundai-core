@@ -6,5 +6,5 @@ import reactor.core.publisher.Mono;
 
 @FunctionalInterface
 public interface VehiclePurchaseSaveUseCase {
-    Mono<PurchaseVehicleDomain> purchase(PurchaseVehicleDomain request, String conversionId);
+    Mono<PurchaseVehicleDomain> purchase(PurchaseVehicleDomain request, String conversionId, String version);
 }

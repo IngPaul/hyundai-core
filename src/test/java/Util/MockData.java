@@ -5,6 +5,8 @@ import com.hyundai.challenge.adapters.out.dbs.sql.postgres.springdata.entities.V
 import com.hyundai.challenge.adapters.common.dto.price.livecoin.DataPriceLiveDto;
 import com.hyundai.challenge.adapters.common.dto.price.livecoin.PriceLiveDto;
 import com.hyundai.challenge.domain.base.ModelVehicleDomain;
+import com.hyundai.challenge.domain.catalog.CatalogVehicleDomain;
+import com.hyundai.challenge.domain.purchase.PurchaseVehicleDomain;
 import com.hyundai.challenge.domain.report.ReportPurchaseVehicleDomain;
 import com.hyundai.challenge.model.*;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
@@ -135,15 +137,11 @@ public class MockData {
     public static ModelVehicleDomain getModelVehicleDomain() {
         ModelVehicleDomain modelVehicleDomain = new ModelVehicleDomain();
         modelVehicleDomain.setId(UUID.randomUUID());
-        modelVehicleDomain.setConversionId(UUID.randomUUID().toString());
-        modelVehicleDomain.setFullName("Hyundai Sonata");
         modelVehicleDomain.setVersion("1.5");
         modelVehicleDomain.setModel("TUCSON");
-        modelVehicleDomain.setMsg("Example message");
         modelVehicleDomain.setCryptocurrency("BTC");
         modelVehicleDomain.setPriceUsd(new BigDecimal("25000"));
         modelVehicleDomain.setPriceCryptocurrency(new BigDecimal("5"));
-        modelVehicleDomain.setDate(LocalDate.now());
         return modelVehicleDomain;
     }
     public static ReportPurchaseVehicleDomain getReportPurchaseVehicleDomain() {
@@ -163,5 +161,24 @@ public class MockData {
         vehicleModelDto.setDisability(0);
         vehicleModelDto.setSecurityCode("ABC123");
         return vehicleModelDto;
+    }
+
+    public static PurchaseVehicleDomain getPurchaseVehicleDomain() {
+        PurchaseVehicleDomain purchaseVehicleDomain= new PurchaseVehicleDomain();
+        purchaseVehicleDomain.setModelVehicleDomain(getModelVehicleDomain());
+        purchaseVehicleDomain.setConvertionId("1");
+        purchaseVehicleDomain.setId(UUID.randomUUID());
+        purchaseVehicleDomain.setFullName("fullName");
+        return purchaseVehicleDomain;
+    }
+
+    public static CatalogVehicleDomain getCatalogVehicleDomain() {
+        CatalogVehicleDomain catalogVehicleDomain= new CatalogVehicleDomain();
+        catalogVehicleDomain.setVersions(Arrays.asList(getModelVehicleDomain()));
+        catalogVehicleDomain.setConversionTimelife("20 seg");
+        catalogVehicleDomain.setConversionTimelifeValue(20L);
+        catalogVehicleDomain.setId(UUID.randomUUID());
+        catalogVehicleDomain.setConvertionId("11");
+        return catalogVehicleDomain;
     }
 }

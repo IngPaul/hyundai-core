@@ -35,7 +35,7 @@ class ModelVehicleAdapterDependenciesTest {
                         .thenReturn(Mono.just(BigDecimal.valueOf(20000)));
 
         StepVerifier.create(modelVehicleAdapterDependencies.retrieveByModelAndCrypto(MODEL_ENUM, CRYPTO_CURRENCY_ENUM))
-                .expectNextMatches(v-> v.getPriceCryptocurrency().compareTo(BigDecimal.valueOf(4.00)) == 0)
+                .expectNextMatches(v-> v.getVersions().get(0).getPriceCryptocurrency().compareTo(BigDecimal.valueOf(4.00)) == 0)
                 .verifyComplete();
         Mockito.verify(modelVehicleClient, Mockito.times(1)).getModelVehicle(Mockito.anyLong());
         Mockito.verify(priceCryptoCurrencyClient, Mockito.times(1)).getPrice(Mockito.any());

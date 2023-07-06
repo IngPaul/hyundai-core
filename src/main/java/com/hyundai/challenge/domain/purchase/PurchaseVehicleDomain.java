@@ -14,9 +14,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PurchaseVehicleDomain extends GenericDomain {
-    private String conversionId;
+    private String convertionId;
     private String fullName;
-    private String version;
     private LocalDate date;
     private ModelVehicleDomain modelVehicleDomain;
 }
+

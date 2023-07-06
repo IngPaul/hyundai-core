@@ -1,8 +1,10 @@
 package com.hyundai.challenge.adapters.in.api.rest;
 
 import com.hyundai.challenge.adapters.common.mapper.*;
-import com.hyundai.challenge.adapters.in.api.rest.dto.Tuple3;
+import com.hyundai.challenge.adapters.common.mapper.news.PostPurchaseVehicleModelMapper;
 import com.hyundai.challenge.controllers.VehicleModelsApi;
+import com.hyundai.challenge.domain.catalog.CatalogVehicleDomain;
+import com.hyundai.challenge.domain.purchase.PurchaseVehicleDomain;
 import com.hyundai.challenge.model.*;
 import com.hyundai.challenge.aplication.port.in.catalog.RetrieveModelVehiclesUseCase;
 import com.hyundai.challenge.aplication.port.in.purchase.VehiclePurchaseSaveUseCase;
@@ -29,6 +31,7 @@ public class ModelVehicleAdapterRest implements VehicleModelsApi {
                 .flatMap(request-> getReportVehiclePurchaseUseCase.retrieveByDateAndModelAndCrypto(request.getDate(),
                                                                                                     request.getModel(),
                                                                                                     request.getCryptocurrency())
+                        .flatMapIterable(data-> data.getModelVehicleDomainList())
                                 .map(PostPurchaseReportMapper.INSTANCE::toPostPurchaseReportResponseData)
                                 .collectList())
                 .map(data->new PostPurchaseReportResponse().data(data))
@@ -39,10 +42,11 @@ public class ModelVehicleAdapterRest implements VehicleModelsApi {
     public Mono<ResponseEntity<PostPurchaseVehicleModelResponse>> postPurchaseVehicleModel(Mono<PostPurchaseVehicleModelRequest> postPurchaseVehicleModelRequest, ServerWebExchange exchange) {
         return postPurchaseVehicleModelRequest
                 .map(PostPurchaseVehicleModelRequest::getData)
-                .map(PostPurchaseVehicleModelRequestDataMapper.INSTANCE::toModelVehicleDomain)//toPurchaseVehicel
-                .flatMap(modelVehicleDomain->vehiclePurchaseSaveUseCase.purchase(modelVehicleDomain, modelVehicleDomain.getConversionId()))
-                .map(PostPurchaseVehicleModelMapper.INSTANCE::mapToPostPurchaseModel)
-                .map(data -> new PostPurchaseVehicleModelResponse().data(data))
+                .flatMap(request->{
+                    PurchaseVehicleDomain modelVehicleDomain = PostPurchaseVehicleModelMapper.INSTANCE.toPurchaseVehicleDomain(request);
+                    return vehiclePurchaseSaveUseCase.purchase(modelVehicleDomain, request.getConvertionId(), request.getVersion());
+                })
+                .map(PostPurchaseVehicleModelMapper.INSTANCE::toPostPurchaseVehicleModelResponse)
                 .map(ResponseEntity::ok);
     }
 
@@ -51,20 +55,28 @@ public class ModelVehicleAdapterRest implements VehicleModelsApi {
         return postVehicleModelRetrieveRequest
                 .flatMap(request ->
                         retrieveModelVehiclesUseCase
-                                .retrieveByModelAndCrypto(request.getData().getModel(), request.getData().getCryptoCurrency())
-                                .collectList()
-                                .map(list -> new Tuple3(list, list.get(0).getMsg(), list.get(0).getConversionId())))
-                .map(data -> new DataResponse()
-                            .versions(completeDataInList(data))
-                            .conversionTimelife(data.getConversionTimelife())
-                            .convertionId(data.getConversionId()))
+                                .retrieveByModelAndCrypto(request.getData().getModel(), request.getData().getCryptoCurrency()))
+                .map(this::buildDataResponse)
                 .map(dataResponse -> new PostVehicleModelRetrieveResponse().data(dataResponse))
                 .map(ResponseEntity::ok);
     }
 
-    private List<VehicleVersion> completeDataInList(Tuple3 data) {
-        return data.getList().stream()
-                .map(domain -> VehicleVersionMapper.INSTANCE.toVehicleVersion(domain, domain.getModel()))
-                .toList();
+    private DataResponse buildDataResponse(CatalogVehicleDomain data) {
+            DataResponse dataResponse= new DataResponse();
+            dataResponse.setConversionTimelife(data.getConversionTimelife());
+            dataResponse.setConvertionId(data.getConvertionId());
+            List<VehicleVersion> versions = data.getVersions().stream().map(vehicle -> {
+                VehicleVersion vehicleResponse = new VehicleVersion();
+                vehicleResponse.setCryptocurrency(vehicle.getCryptocurrency());
+                vehicleResponse.setPriceUsd(vehicle.getPriceUsd());
+                vehicleResponse.setPriceCryptocurrency(vehicle.getPriceCryptocurrency());
+                vehicleResponse.setModel(vehicle.getModel());
+                vehicleResponse.setVersion(vehicle.getVersion());
+                return vehicleResponse;
+            }).toList();
+            dataResponse.setVersions(versions);
+            return dataResponse;
     }
+
+
 }

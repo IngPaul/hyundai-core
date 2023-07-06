@@ -8,8 +8,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface PostPurchaseVehicleModelRequestDataMapper {
     PostPurchaseVehicleModelRequestDataMapper INSTANCE = Mappers.getMapper(PostPurchaseVehicleModelRequestDataMapper.class);
-    @Mapping(target = "msg", ignore = true)
-    @Mapping(target = "conversionId", source = "convertionId")
+
     ModelVehicleDomain toModelVehicleDomain(PostPurchaseVehicleModelRequestData requestData);
 
 }

@@ -5,6 +5,7 @@ import com.hyundai.challenge.aplication.port.out.a_common.convertion.AddPriceCri
 import com.hyundai.challenge.aplication.port.out.a_common.memory.SaveListModelVehiclesInMemoryPort;
 import com.hyundai.challenge.aplication.port.out.catalog.RetrieveModelVehiclesPort;
 import com.hyundai.challenge.domain.base.ModelVehicleDomain;
+import com.hyundai.challenge.domain.catalog.CatalogVehicleDomain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,10 +35,10 @@ class RetrieveVehicleServiceImplTest {
 
     @Test
     void retrieveByModelAndCrypto() {
-
         ModelVehicleDomain modelVehicleDomain= MockData.getModelVehicleDomain();
+        CatalogVehicleDomain catalogVehicleDomain= MockData.getCatalogVehicleDomain();
         Mockito.when(retrieveModelVehiclesPort.retrieveByModelAndCrypto(Mockito.any(), Mockito.any()))
-                .thenReturn(Flux.just(modelVehicleDomain));
+                .thenReturn(Flux.just(catalogVehicleDomain));
         Mockito.when(addPriceCriptocurrencyPort.add(Mockito.any(), Mockito.any()))
                 .thenReturn(Mono.just(modelVehicleDomain));
         Mockito.when(saveListModelVehiclesInMemoryPort.save(Mockito.any(), Mockito.any(), Mockito.any()))

@@ -9,6 +9,7 @@ import com.hyundai.challenge.configuration.handler.error.CoreError;
 import com.hyundai.challenge.domain.base.ModelVehicleDomain;
 import com.hyundai.challenge.domain.base.enums.CryptoCurrencyEnum;
 import com.hyundai.challenge.domain.base.enums.ModelVehicleEnum;
+import com.hyundai.challenge.domain.purchase.PurchaseVehicleDomain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,12 +47,12 @@ class PurchaseServiceImplTest {
                 .thenReturn(Mono.just(MockData.getModelVehicleDomain()));
 
         Mockito.when(vehiclePurchaseSavePort.purchase(Mockito.any()))
-                .thenReturn(Mono.just(MockData.getModelVehicleDomain()));
+                .thenReturn(Mono.just( MockData.getPurchaseVehicleDomain()));
     }
     @Test
     void purchaseWithDataInMemory() {
         purchase(Mono.just(MockData.getModelVehicleDomain()),Mono.just(MockData.getModelVehicleDomain()));
-        StepVerifier.create(purchaseService.purchase(MockData.getModelVehicleDomain(), "XXXXX"))
+        StepVerifier.create(purchaseService.purchase( MockData.getPurchaseVehicleDomain(), "XXXXX","1.5"))
                 .expectNextCount(1)
                 .verifyComplete();
         Mockito.verify(retrieveVersionVehicleInMemoryPort, Mockito.times(1)).retrieveByConversionIdAndVersion(Mockito.anyString(), Mockito.any(), Mockito.anyString());
@@ -61,7 +62,7 @@ class PurchaseServiceImplTest {
     @Test
     void purchaseWithDataNotInMemory() {
         purchase(Mono.empty(), Mono.just(MockData.getModelVehicleDomain()));
-        StepVerifier.create(purchaseService.purchase(MockData.getModelVehicleDomain(), "XXXXX"))
+        StepVerifier.create(purchaseService.purchase( MockData.getPurchaseVehicleDomain(), "XXXXX","1.5"))
                 .expectNextCount(1)
                 .verifyComplete();
         Mockito.verify(retrieveVersionVehicleInMemoryPort, Mockito.times(1)).retrieveByConversionIdAndVersion(Mockito.anyString(), Mockito.any(), Mockito.anyString());
@@ -76,7 +77,7 @@ class PurchaseServiceImplTest {
                 .thenReturn(Mono.empty());
         Mockito.when(retrieveVersionVehiclePort.retrieveByModelAndCryptoAndVersion(Mockito.any(), Mockito.any(), Mockito.anyString()))
                 .thenReturn(Mono.empty());
-        StepVerifier.create(purchaseService.purchase(MockData.getModelVehicleDomain(), "XXXXX"))
+        StepVerifier.create(purchaseService.purchase( MockData.getPurchaseVehicleDomain(), "XXXXX","XX"))
                 .expectError();
         Mockito.verify(retrieveVersionVehicleInMemoryPort, Mockito.times(1)).retrieveByConversionIdAndVersion(Mockito.anyString(), Mockito.any(), Mockito.anyString());
         Mockito.verify(retrieveVersionVehiclePort, Mockito.times(1)).retrieveByModelAndCryptoAndVersion(Mockito.any(), Mockito.any(), Mockito.anyString());
